@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>soeloh</title>
+<meta name="description" content="Personal hub — HorizonsRP (Garry's Mod DarkRP) and AI-generated music as GeneratedByAccident.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:            #0b0e12;
+    --panel:         #12161d;
+    --panel-2:       #171c25;
+    --line:          #232a35;
+    --text:          #e7ecf2;
+    --text-dim:      #8a94a3;
+    --purple: #b98cff;
+    --gold:          #d4af37;
+    --violet-deep:   #4b1f78;
+    --danger:        #ff5c5c;
+    --radius:        10px;
+    --font-display:  'Space Grotesk', sans-serif;
+    --font-mono:      'JetBrains Mono', monospace;
+    --font-body:      'IBM Plex Sans', sans-serif;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  /* ---------- CRT scanline overlay ---------- */
+  .scanlines{
+    pointer-events:none;
+    position:fixed;
+    inset:0;
+    z-index:50;
+    background:repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.018) 0px,
+      rgba(255,255,255,0.018) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    mix-blend-mode:overlay;
+  }
+  .vignette{
+    pointer-events:none;
+    position:fixed;
+    inset:0;
+    z-index:49;
+    background:radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.55) 100%);
+  }
+
+  /* ---------- Layout helpers ---------- */
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 24px; }
+  section{ padding:96px 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--purple);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px;
+    background:var(--purple);
+    box-shadow:0 0 8px var(--purple);
+    display:inline-block;
+  }
+
+  h1,h2,h3{ font-family:var(--font-display); font-weight:600; letter-spacing:-0.01em; }
+
+  a{ color:inherit; }
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky; top:0; z-index:40;
+    background:rgba(11,14,18,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:16px; padding-bottom:16px;
+  }
+  .logo{
+    font-family:var(--font-mono);
+    font-weight:700;
+    font-size:1.05rem;
+    letter-spacing:0.02em;
+    color:var(--text);
+  }
+  .logo span{ color:var(--purple); }
+  .navlinks{ display:flex; gap:28px; list-style:none; }
+  .navlinks a{
+    font-family:var(--font-mono);
+    font-size:0.82rem;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-dim);
+    text-decoration:none;
+    transition:color .15s ease;
+    position:relative;
+  }
+  .navlinks a:hover, .navlinks a:focus-visible{ color:var(--purple); }
+  .navlinks a:focus-visible{ outline:2px solid var(--purple); outline-offset:4px; }
+  @media (max-width:640px){ .navlinks{ display:none; } }
+
+  /* ---------- Hero / boot sequence ---------- */
+  .hero{
+    padding:120px 0 90px;
+    border-bottom:1px solid var(--line);
+  }
+  .terminal{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    max-width:640px;
+    box-shadow:0 0 0 1px rgba(185,140,255,0.06), 0 30px 60px -30px rgba(0,0,0,0.7);
+    overflow:hidden;
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 14px;
+    background:var(--panel-2);
+    border-bottom:1px solid var(--line);
+  }
+  .dot{ width:9px; height:9px; border-radius:50%; }
+  .dot.r{ background:#ff5f57; } .dot.y{ background:#febc2e; } .dot.g{ background:#28c840; }
+  .terminal-title{
+    font-family:var(--font-mono); font-size:0.72rem; color:var(--text-dim);
+    margin-left:6px;
+  }
+  .terminal-body{
+    padding:20px 18px 24px;
+    font-family:var(--font-mono);
+    font-size:0.86rem;
+    color:#c9b6f5;
+    min-height:150px;
+  }
+  .terminal-body .line{ margin-bottom:6px; white-space:pre-wrap; }
+  .terminal-body .ok{ color:var(--purple); }
+  .terminal-body .warn{ color:var(--gold); }
+  .cursor{
+    display:inline-block; width:8px; height:1em; background:var(--purple);
+    vertical-align:text-bottom; animation:blink 1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .hero h1{
+    font-size:clamp(2.2rem, 5vw, 3.4rem);
+    margin-top:36px;
+    line-height:1.05;
+  }
+  .hero h1 .accent{ color:var(--purple); }
+  .hero p.lede{
+    margin-top:16px;
+    max-width:560px;
+    color:var(--text-dim);
+    font-size:1.05rem;
+  }
+  .hero-cta{ display:flex; gap:14px; margin-top:32px; flex-wrap:wrap; }
+
+  .btn{
+    font-family:var(--font-mono);
+    font-size:0.82rem;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:12px 20px;
+    border-radius:6px;
+    text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--line);
+    transition:transform .12s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover, .btn:focus-visible{ transform:translateY(-2px); }
+  .btn:focus-visible{ outline:2px solid var(--purple); outline-offset:3px; }
+  .btn-primary{
+    background:var(--purple); color:#1a0f2e; border-color:var(--purple); font-weight:700;
+  }
+  .btn-primary:hover{ box-shadow:0 0 22px rgba(185,140,255,0.4); }
+  .btn-ghost{ color:var(--text); background:transparent; }
+  .btn-ghost:hover{ border-color:var(--gold); color:var(--gold); }
+
+  /* ---------- Section headers ---------- */
+  .section-head{ margin-bottom:40px; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+  .section-head h2{ font-size:clamp(1.6rem, 3vw, 2.1rem); }
+  .section-head p{ color:var(--text-dim); font-size:0.95rem; max-width:420px; }
+
+  /* ---------- Cards grid ---------- */
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:18px; }
+
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px;
+    position:relative;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .card:hover{ border-color:var(--purple); transform:translateY(-3px); }
+  .card .tag{
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--gold);
+    margin-bottom:10px;
+    display:inline-block;
+  }
+  .card h3{ font-size:1.15rem; margin-bottom:8px; }
+  .card p{ color:var(--text-dim); font-size:0.92rem; }
+  .card .meta{
+    margin-top:16px; padding-top:14px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--font-mono); font-size:0.78rem; color:var(--text-dim);
+  }
+  .card .meta a{ color:var(--purple); text-decoration:none; }
+  .card .meta a:hover{ text-decoration:underline; }
+
+  .status{ display:inline-flex; align-items:center; gap:6px; }
+  .status::before{ content:""; width:6px; height:6px; border-radius:50%; }
+  .status.live::before{ background:#28c840; box-shadow:0 0 6px #28c840; }
+  .status.dev::before{ background:var(--gold); box-shadow:0 0 6px var(--gold); }
+  .status.archived::before{ background:var(--text-dim); }
+
+  /* ---------- Music section ---------- */
+  .track-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+    gap:16px;
+  }
+  .track-row:last-child{ border-bottom:none; }
+  .track-info{ display:flex; align-items:center; gap:14px; }
+  .track-num{ font-family:var(--font-mono); color:var(--text-dim); font-size:0.85rem; width:24px; }
+  .track-name{ font-weight:500; }
+  .track-genre{ color:var(--text-dim); font-size:0.85rem; font-family:var(--font-mono); }
+  .track-link{
+    font-family:var(--font-mono); font-size:0.78rem; text-transform:uppercase;
+    color:var(--purple); text-decoration:none; letter-spacing:0.05em; white-space:nowrap;
+  }
+  .track-link:hover{ text-decoration:underline; }
+
+  /* ---------- Downloads ---------- */
+  .dl-list{ display:flex; flex-direction:column; gap:12px; }
+  .dl-item{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:16px 20px;
+  }
+  .dl-item h4{ font-size:1rem; font-weight:500; }
+  .dl-item .sub{ color:var(--text-dim); font-size:0.82rem; font-family:var(--font-mono); margin-top:4px; }
+  .dl-note{
+    margin-top:20px;
+    font-family:var(--font-mono);
+    font-size:0.8rem;
+    color:var(--text-dim);
+    border-left:2px solid var(--gold);
+    padding-left:12px;
+  }
+
+  /* ---------- Links ---------- */
+  .links-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));
+    gap:14px;
+  }
+  .link-card{
+    display:flex; align-items:center; gap:12px;
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:16px 18px; text-decoration:none; color:var(--text);
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .link-card:hover{ border-color:var(--gold); transform:translateY(-2px); }
+  .link-icon{
+    width:34px; height:34px; border-radius:7px;
+    background:var(--panel-2); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono); font-size:0.8rem; color:var(--purple);
+    flex-shrink:0;
+  }
+  .link-name{ font-weight:500; font-size:0.95rem; }
+  .link-sub{ color:var(--text-dim); font-size:0.78rem; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:48px 0;
+    text-align:center;
+    font-family:var(--font-mono);
+    font-size:0.78rem;
+    color:var(--text-dim);
+  }
+  footer .flicker{ color:var(--purple); }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .cursor{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scanlines" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">soeloh</div>
+    <ul class="navlinks">
+      <li><a href="#project">HorizonsRP</a></li>
+      <li><a href="#ideas">Ideas</a></li>
+      <li><a href="#music">Music</a></li>
+      <li><a href="#links">Links</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="terminal-title">root@soeloh — boot</span>
+      </div>
+      <div class="terminal-body" id="bootText"></div>
+    </div>
+
+    <h1>I build a Garry's Mod server. <span class="accent">That's basically it.</span></h1>
+    <p class="lede">Soeloh is just the brand name at this point. The real thing is HorizonsRP — plus whatever AI music I've talked myself into finishing this week.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#project">Check out HorizonsRP →</a>
+      <a class="btn btn-ghost" href="#music">Listen to the music</a>
+    </div>
+  </div>
+</section>
+
+<section id="project">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">The project</div>
+        <h2>HorizonsRP</h2>
+      </div>
+      <p>A Garry's Mod DarkRP server, built and tuned from the ground up.</p>
+    </div>
+
+    <p style="max-width:640px; color:var(--text-dim); margin-bottom:36px; font-size:1.02rem;">
+      This is where the actual hours go. Not a side hustle, not a hosting business — just a DarkRP server I keep making better: tuning the economy, writing custom jobs, scripting with E2/Wiremod, and building out systems players actually notice.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <span class="tag">Economy</span>
+        <h3>Economy Tuning</h3>
+        <p>Ongoing balance work on the server economy — pay rates, prices, and job payouts tuned so nothing snowballs out of whack.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Jobs</span>
+        <h3>Custom Jobs</h3>
+        <p>Hand-built jobs on top of the base DarkRP framework, each with their own tools and mechanics.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">E2 / Wiremod</span>
+        <h3>Scripting</h3>
+        <p>Expression 2 and Wiremod scripting powering custom in-game systems and interactions.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">UI</span>
+        <h3>Custom HUD</h3>
+        <p>A HUD built specifically for the server, not a stock DarkRP skin.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Casino</span>
+        <h3>Casino & Coinflip</h3>
+        <p>In-server casino systems and coinflip lobbies — a full gambling layer built for the economy.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Currency</span>
+        <h3>Credits System</h3>
+        <p>A premium currency layered on top of the server economy.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:32px;">
+      <a class="btn btn-primary" href="#">Join HorizonsRP →</a>
+    </div>
+  </div>
+</section>
+
+<section id="ideas">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">On the drawing board</div>
+        <h2>Future Ideas</h2>
+      </div>
+      <p>Not real yet. Just a place to hold onto things before they are.</p>
+    </div>
+
+    <!-- Edit these placeholder cards as ideas come up. Copy the block to add more slots. -->
+    <div class="grid">
+      <div class="card" style="border-style:dashed; opacity:0.7;">
+        <span class="tag">Idea</span>
+        <h3>Untitled 01</h3>
+        <p>Placeholder — fill in when this becomes a real thing.</p>
+      </div>
+      <div class="card" style="border-style:dashed; opacity:0.7;">
+        <span class="tag">Idea</span>
+        <h3>Untitled 02</h3>
+        <p>Placeholder — fill in when this becomes a real thing.</p>
+      </div>
+      <div class="card" style="border-style:dashed; opacity:0.7;">
+        <span class="tag">Idea</span>
+        <h3>Untitled 03</h3>
+        <p>Placeholder — fill in when this becomes a real thing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="music">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Now playing</div>
+        <h2>Music — GeneratedByAccident</h2>
+      </div>
+      <p>AI-generated tracks across way too many genres. Every song starts as a bad idea that got finished.</p>
+    </div>
+
+    <div class="card" style="padding:8px 22px;">
+      <div class="track-row">
+        <div class="track-info">
+          <span class="track-num">01</span>
+          <div>
+            <div class="track-name">Hemp Ban Protest Song</div>
+            <div class="track-genre">conscious rap</div>
+          </div>
+        </div>
+        <a class="track-link" href="#">Listen ↗</a>
+      </div>
+      <div class="track-row">
+        <div class="track-info">
+          <span class="track-num">02</span>
+          <div>
+            <div class="track-name">Ed, Edd n Eddy Tribute</div>
+            <div class="track-genre">boom bap</div>
+          </div>
+        </div>
+        <a class="track-link" href="#">Listen ↗</a>
+      </div>
+      <div class="track-row">
+        <div class="track-info">
+          <span class="track-num">03</span>
+          <div>
+            <div class="track-name">One Piece Shanty</div>
+            <div class="track-genre">sea shanty</div>
+          </div>
+        </div>
+        <a class="track-link" href="#">Listen ↗</a>
+      </div>
+      <div class="track-row">
+        <div class="track-info">
+          <span class="track-num">04</span>
+          <div>
+            <div class="track-name">[Latest brostep track]</div>
+            <div class="track-genre">brostep</div>
+          </div>
+        </div>
+        <a class="track-link" href="#">Listen ↗</a>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;">
+      <a class="btn btn-ghost" href="#">Full catalog on Suno →</a>
+    </div>
+  </div>
+</section>
+
+<section id="links">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Elsewhere</div>
+        <h2>Links</h2>
+      </div>
+      <p>Where else to find me.</p>
+    </div>
+
+    <div class="links-grid">
+      <a class="link-card" href="#">
+        <span class="link-icon">GH</span>
+        <div><div class="link-name">GitHub</div><div class="link-sub">Code & repos</div></div>
+      </a>
+      <a class="link-card" href="#">
+        <span class="link-icon">♬</span>
+        <div><div class="link-name">Suno</div><div class="link-sub">GeneratedByAccident</div></div>
+      </a>
+      <a class="link-card" href="#">
+        <span class="link-icon">DC</span>
+        <div><div class="link-name">HorizonsRP Discord</div><div class="link-sub">Join the server</div></div>
+      </a>
+      <a class="link-card" href="#">
+        <span class="link-icon">OSRS</span>
+        <div><div class="link-name">OSRS Ironman</div><div class="link-sub">15+ years, top 20 Cooking</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="flicker">soeloh.com</span> — built by hand, hosted on GitHub Pages
+  </div>
+</footer>
+
+<script>
+  const bootLines = [
+    { text: "> initializing soeloh.sys ...", cls: "" },
+    { text: "> loading modules: horizonsrp, music", cls: "" },
+    { text: "> OK  horizonsrp.server   [online]", cls: "ok" },
+    { text: "> OK  generatedbyaccident.catalog   [synced]", cls: "ok" },
+    { text: "> WARN  sleep_schedule.dll   [not found]", cls: "warn" },
+    { text: "> welcome back.", cls: "ok" },
+  ];
+
+  const el = document.getElementById('bootText');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function renderStatic(){
+    el.innerHTML = bootLines.map(l => `<div class="line ${l.cls}">${l.text}</div>`).join('');
+  }
+
+  async function typeLines(){
+    for (const line of bootLines){
+      const div = document.createElement('div');
+      div.className = 'line ' + line.cls;
+      el.appendChild(div);
+      for (let i = 0; i <= line.text.length; i++){
+        div.textContent = line.text.slice(0, i);
+        await new Promise(r => setTimeout(r, 12));
+      }
+      await new Promise(r => setTimeout(r, 120));
+    }
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    el.appendChild(cursor);
+  }
+
+  if (reduceMotion){
+    renderStatic();
+  } else {
+    typeLines();
+  }
+</script>
+
+</body>
+</html>
