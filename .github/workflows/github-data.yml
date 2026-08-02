@@ -1,0 +1,35 @@
+name: Update GitHub projects/activity feed
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: github-data
+  cancel-in-progress: true
+
+jobs:
+  update-github-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Query GitHub projects + activity
+        run: python3 scripts/query_github.py
+        continue-on-error: true
+
+      - name: Commit github.json if changed
+        run: |
+          if git diff --quiet -- github.json; then
+            echo "No change, skipping commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add github.json
+          git commit -m "chore: update GitHub projects/activity feed [skip ci]"
+          git push

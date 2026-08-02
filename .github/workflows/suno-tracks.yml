@@ -1,0 +1,35 @@
+name: Update Suno track list
+
+on:
+  schedule:
+    - cron: "0 */3 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: suno-tracks
+  cancel-in-progress: true
+
+jobs:
+  update-tracks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Query Suno catalog
+        run: python3 scripts/query_suno_tracks.py
+        continue-on-error: true
+
+      - name: Commit tracks.json if changed
+        run: |
+          if git diff --quiet -- tracks.json; then
+            echo "No change, skipping commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tracks.json
+          git commit -m "chore: update Suno track list [skip ci]"
+          git push

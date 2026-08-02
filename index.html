@@ -7,6 +7,9 @@
 <meta name="description" content="Personal hub — HorizonsRP (Garry's Mod DarkRP) and AI-generated music as GeneratedByAccident.">
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0e12'/%3E%3Crect x='1' y='1' width='30' height='30' rx='6' fill='none' stroke='%23232a35'/%3E%3Ctext x='16' y='23' font-family='monospace' font-weight='700' font-size='19' fill='%23b98cff' text-anchor='middle'%3ES%3C/text%3E%3Ccircle cx='25' cy='8' r='2.4' fill='%23d4af37'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="canonical" href="https://soeloh.com/">
+<meta name="theme-color" content="#0b0e12">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="soeloh">
@@ -124,6 +127,7 @@
     font-size:1.05rem;
     letter-spacing:0.02em;
     color:var(--text);
+    text-decoration:none;
   }
   .logo span{ color:var(--purple); }
   .navlinks{ display:flex; gap:28px; list-style:none; }
@@ -141,46 +145,52 @@
   .navlinks a:focus-visible{ outline:2px solid var(--purple); outline-offset:4px; }
   @media (max-width:640px){ .navlinks{ display:none; } }
 
-  /* ---------- Hero / boot sequence ---------- */
+  /* ---------- Hero ---------- */
   .hero{
     padding:120px 0 90px;
     border-bottom:1px solid var(--line);
-  }
-  .terminal{
-    background:var(--panel);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    max-width:640px;
-    box-shadow:0 0 0 1px rgba(185,140,255,0.06), 0 30px 60px -30px rgba(0,0,0,0.7);
+    position:relative;
     overflow:hidden;
   }
-  .terminal-bar{
-    display:flex; align-items:center; gap:8px;
-    padding:10px 14px;
-    background:var(--panel-2);
-    border-bottom:1px solid var(--line);
+  .hero::before{
+    content:"";
+    position:absolute;
+    top:-220px; left:-160px;
+    width:640px; height:640px;
+    background:radial-gradient(circle, rgba(185,140,255,0.16), rgba(185,140,255,0) 70%);
+    pointer-events:none;
   }
-  .dot{ width:9px; height:9px; border-radius:50%; }
-  .dot.r{ background:#ff5f57; } .dot.y{ background:#febc2e; } .dot.g{ background:#28c840; }
-  .terminal-title{
-    font-family:var(--font-mono); font-size:0.72rem; color:var(--text-dim);
-    margin-left:6px;
-  }
-  .terminal-body{
-    padding:20px 18px 24px;
+  .hero .wrap{ position:relative; }
+
+  .badge-row{ display:flex; flex-wrap:wrap; gap:10px; }
+  .badge{
+    display:inline-flex; align-items:stretch;
+    height:26px;
+    border-radius:5px;
+    overflow:hidden;
     font-family:var(--font-mono);
-    font-size:0.86rem;
-    color:#c9b6f5;
-    min-height:150px;
+    font-size:0.7rem;
+    font-weight:600;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    box-shadow:0 0 0 1px rgba(255,255,255,0.05);
   }
-  .terminal-body .line{ margin-bottom:6px; white-space:pre-wrap; }
-  .terminal-body .ok{ color:var(--purple); }
-  .terminal-body .warn{ color:var(--gold); }
-  .cursor{
-    display:inline-block; width:8px; height:1em; background:var(--purple);
-    vertical-align:text-bottom; animation:blink 1s steps(1) infinite;
+  .badge-label{
+    background:var(--panel-2);
+    color:var(--text-dim);
+    padding:0 10px;
+    display:flex; align-items:center;
   }
-  @keyframes blink{ 50%{ opacity:0; } }
+  .badge-value{
+    padding:0 10px;
+    display:flex; align-items:center;
+    color:#0b0e12;
+  }
+  .badge-value.ok{ background:#28c840; }
+  .badge-value.info{ background:var(--purple); }
+  .badge-value.warn{ background:var(--gold); }
+  .badge-value.offline{ background:var(--danger); }
+  .badge-value.pending{ background:var(--line); color:var(--text-dim); }
 
   .hero h1{
     font-size:clamp(2.2rem, 5vw, 3.4rem);
@@ -216,6 +226,20 @@
   .btn-primary:hover{ box-shadow:0 0 22px rgba(185,140,255,0.4); }
   .btn-ghost{ color:var(--text); background:transparent; }
   .btn-ghost:hover{ border-color:var(--gold); color:var(--gold); }
+
+  /* ---------- Asides (flavor text, kept visually separate from real copy) ---------- */
+  .aside{ color:var(--text-dim); font-style:italic; }
+  p.aside{ font-family:var(--font-mono); font-size:0.82rem; opacity:0.85; margin-top:8px; }
+
+  /* ---------- HorizonsRP section background ---------- */
+  #project{
+    position:relative;
+    background:
+      linear-gradient(180deg, rgba(11,14,18,0.55), rgba(11,14,18,0.85)),
+      url('assets/horizonsRP-bg.jpg');
+    background-size:cover;
+    background-position:center;
+  }
 
   /* ---------- Section headers ---------- */
   .section-head{ margin-bottom:40px; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
@@ -253,6 +277,16 @@
   .card .meta a{ color:var(--purple); text-decoration:none; }
   .card .meta a:hover{ text-decoration:underline; }
 
+  .activity-row{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:12px 0; border-bottom:1px solid var(--line);
+    font-size:0.88rem; text-decoration:none; color:var(--text);
+  }
+  .activity-row:last-child{ border-bottom:none; }
+  .activity-row:hover .activity-text{ color:var(--purple); }
+  .activity-text{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; }
+  .activity-date{ font-family:var(--font-mono); font-size:0.72rem; color:var(--text-dim); white-space:nowrap; flex-shrink:0; }
+
   .status{ display:inline-flex; align-items:center; gap:6px; }
   .status::before{ content:""; width:6px; height:6px; border-radius:50%; }
   .status.live::before{ background:#28c840; box-shadow:0 0 6px #28c840; }
@@ -269,23 +303,13 @@
   .hrp-heading{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
   .hrp-icon{ width:40px; height:40px; border-radius:8px; display:block; }
 
-  /* ---------- Music section ---------- */
-  .track-row{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:14px 0;
-    border-bottom:1px solid var(--line);
-    gap:16px;
+  /* ---------- Pills (shared: GitHub project languages/topics) ---------- */
+  .pill-row{ display:flex; flex-wrap:wrap; gap:6px; }
+  .pill{
+    font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.02em;
+    color:var(--text-dim); background:var(--panel-2); border:1px solid var(--line);
+    padding:3px 10px; border-radius:20px; white-space:nowrap;
   }
-  .track-row:last-child{ border-bottom:none; }
-  .track-info{ display:flex; align-items:center; gap:14px; }
-  .track-num{ font-family:var(--font-mono); color:var(--text-dim); font-size:0.85rem; width:24px; }
-  .track-name{ font-weight:500; }
-  .track-genre{ color:var(--text-dim); font-size:0.85rem; font-family:var(--font-mono); }
-  .track-link{
-    font-family:var(--font-mono); font-size:0.78rem; text-transform:uppercase;
-    color:var(--purple); text-decoration:none; letter-spacing:0.05em; white-space:nowrap;
-  }
-  .track-link:hover{ text-decoration:underline; }
 
   /* ---------- Downloads ---------- */
   .dl-list{ display:flex; flex-direction:column; gap:12px; }
@@ -340,7 +364,6 @@
 
   @media (prefers-reduced-motion: reduce){
     html{ scroll-behavior:auto; }
-    .cursor{ animation:none; }
   }
 </style>
 </head>
@@ -351,12 +374,12 @@
 
 <header>
   <nav class="wrap">
-    <div class="logo">soeloh</div>
+    <a class="logo" href="index.html">soeloh</a>
     <ul class="navlinks">
       <li><a href="#about">About</a></li>
       <li><a href="#project">HorizonsRP</a></li>
-      <li><a href="#ideas">Ideas</a></li>
-      <li><a href="#music">Music</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="music.html">Music</a></li>
       <li><a href="#links">Links</a></li>
     </ul>
   </nav>
@@ -364,32 +387,45 @@
 
 <section class="hero">
   <div class="wrap">
-    <div class="terminal">
-      <div class="terminal-bar">
-        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-        <span class="terminal-title">root@soeloh — boot</span>
-      </div>
-      <div class="terminal-body" id="bootText"></div>
+    <div class="badge-row">
+      <span class="badge">
+        <span class="badge-label">horizonsrp</span>
+        <span class="badge-value pending" id="heroHrpBadge">checking</span>
+      </span>
+      <span class="badge">
+        <span class="badge-label">generatedbyaccident</span>
+        <span class="badge-value info">synced</span>
+      </span>
+      <span class="badge">
+        <span class="badge-label">soeloh</span>
+        <span class="badge-value warn">ready</span>
+      </span>
     </div>
 
     <h1>Always tinkering with <span class="accent">something new.</span></h1>
-    <p class="lede">I like figuring things out — running ideas through LLMs, building for the sake of learning, seeing what sticks. Right now that's HorizonsRP, plus whatever AI music I've talked myself into finishing this week.</p>
+    <p class="lede">I like figuring things out — running ideas through LLMs, building for the sake of learning, seeing what sticks. Right now that's HorizonsRP, plus whatever AI music I've talked myself into finishing this week. <span class="aside">Built by one guy, an unreasonable number of browser tabs, and a language model that has stopped asking questions and started just doing the thing.</span></p>
     <div class="hero-cta">
       <a class="btn btn-primary" href="#project">Check out HorizonsRP →</a>
-      <a class="btn btn-ghost" href="#music">Listen to the music</a>
+      <a class="btn btn-ghost" href="music.html">Listen to the music</a>
     </div>
   </div>
 </section>
 
 <section id="about" style="padding:64px 0;">
   <div class="wrap">
+    <img src="assets/websitebrandingstuff-web.jpg" alt="Blackberry / Soeloh"
+         style="width:100%; max-width:640px; border-radius:var(--radius); border:1px solid var(--line); box-shadow:0 0 0 1px rgba(185,140,255,0.06), 0 30px 60px -30px rgba(0,0,0,0.7); display:block; margin-bottom:28px;">
     <div class="eyebrow">Who's behind this</div>
     <p style="max-width:640px; font-size:1.05rem; color:var(--text);">
       One person, way too many tabs open. No studio, no team, no roadmap beyond
       "this seemed fun" — just a place to point people at what I'm actually building:
       <a href="#project" style="color:var(--purple); text-decoration:none;">HorizonsRP</a>
       and whatever's playing over in
-      <a href="#music" style="color:var(--gold); text-decoration:none;">GeneratedByAccident</a>.
+      <a href="music.html" style="color:var(--gold); text-decoration:none;">GeneratedByAccident</a>.
+    </p>
+    <p class="aside" style="max-width:640px; margin-top:10px; font-size:0.95rem;">
+      No design system. No style guide. Just vibes, purple, and gold. This site has been
+      redesigned more times than HorizonsRP has had its economy "finally balanced for real this time."
     </p>
   </div>
 </section>
@@ -400,7 +436,7 @@
       <div>
         <div class="eyebrow">The project</div>
         <h2 class="hrp-heading">
-          <img class="hrp-icon" src="assets/horizonsrpicon.png" alt="" width="40" height="40">
+          <img class="hrp-icon" src="assets/horizonsrpicon-web.png" alt="" width="40" height="40">
           HorizonsRP
           <span id="serverBadge" class="status server-badge archived">checking…</span>
         </h2>
@@ -409,7 +445,7 @@
     </div>
 
     <p style="max-width:640px; color:var(--text-dim); margin-bottom:36px; font-size:1.02rem;">
-      This is where the actual hours go. Not a side hustle, not a hosting business — just a DarkRP server I keep making better: tuning the economy, writing custom jobs, scripting with E2/Wiremod, and building out systems players actually notice.
+      This is where the actual hours go. Not a side hustle, not a hosting business — just a DarkRP server I keep making better: tuning the economy, writing custom jobs, and building out systems players actually notice.
     </p>
 
     <div class="grid">
@@ -426,12 +462,6 @@
       </div>
 
       <div class="card">
-        <span class="tag">E2 / Wiremod</span>
-        <h3>Scripting</h3>
-        <p>Expression 2 and Wiremod scripting powering custom in-game systems and interactions.</p>
-      </div>
-
-      <div class="card">
         <span class="tag">UI</span>
         <h3>Custom HUD</h3>
         <p>A HUD built specifically for the server, not a stock DarkRP skin.</p>
@@ -441,6 +471,7 @@
         <span class="tag">Casino</span>
         <h3>Casino & Coinflip</h3>
         <p>In-server casino systems and coinflip lobbies — a full gambling layer built for the economy.</p>
+        <p class="aside">Yes, the casino is rigged. It's rigged in favor of math, which is somehow worse.</p>
       </div>
 
       <div class="card">
@@ -457,96 +488,45 @@
     <p id="serverDetail" style="margin-top:14px; font-family:var(--font-mono); font-size:0.8rem; color:var(--text-dim);">
       Manual connect: <span style="color:var(--purple);">193.243.190.4:27087</span>
     </p>
+    <p class="aside" style="margin-top:6px;">Uptime not guaranteed, but neither is anything else in life.</p>
   </div>
 </section>
 
-<section id="ideas">
+<section id="projects">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="eyebrow">On the drawing board</div>
-        <h2>Future Ideas</h2>
+        <div class="eyebrow">From GitHub</div>
+        <h2>Active Projects</h2>
       </div>
-      <p>Not real yet. Just a place to hold onto things before they are.</p>
+      <p>Live from my public repos — whatever's actually got recent commits.</p>
     </div>
 
-    <!-- Edit these placeholder cards as ideas come up. Copy the block to add more slots. -->
-    <div class="grid">
-      <div class="card" style="border-style:dashed; opacity:0.7;">
-        <span class="tag">Idea</span>
-        <h3>Untitled 01</h3>
-        <p>Placeholder — fill in when this becomes a real thing.</p>
+    <div class="grid" id="projectsGrid">
+      <div class="card" style="opacity:0.6;">
+        <span class="tag">Loading</span>
+        <h3>Fetching repos…</h3>
+        <p>Pulling the latest from GitHub.</p>
       </div>
-      <div class="card" style="border-style:dashed; opacity:0.7;">
-        <span class="tag">Idea</span>
-        <h3>Untitled 02</h3>
-        <p>Placeholder — fill in when this becomes a real thing.</p>
-      </div>
-      <div class="card" style="border-style:dashed; opacity:0.7;">
-        <span class="tag">Idea</span>
-        <h3>Untitled 03</h3>
-        <p>Placeholder — fill in when this becomes a real thing.</p>
+    </div>
+
+    <div style="margin-top:40px;" id="activityWrap">
+      <div class="eyebrow" style="margin-bottom:16px;">Recent activity</div>
+      <div class="card" id="activityCard" style="padding:8px 22px;">
+        <div class="activity-row"><span class="activity-text">Loading…</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="music">
+<section style="padding:64px 0;">
   <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow">Now playing</div>
-        <h2>Music — GeneratedByAccident</h2>
-      </div>
-      <p>AI-generated tracks across way too many genres. Every song starts as a bad idea that got finished.</p>
-    </div>
-
-    <div class="card" style="padding:8px 22px;">
-      <div class="track-row">
-        <div class="track-info">
-          <span class="track-num">01</span>
-          <div>
-            <div class="track-name">Hemp Ban Protest Song</div>
-            <div class="track-genre">conscious rap</div>
-          </div>
-        </div>
-        <a class="track-link" href="#">Listen ↗</a>
-      </div>
-      <div class="track-row">
-        <div class="track-info">
-          <span class="track-num">02</span>
-          <div>
-            <div class="track-name">Ed, Edd n Eddy Tribute</div>
-            <div class="track-genre">boom bap</div>
-          </div>
-        </div>
-        <a class="track-link" href="#">Listen ↗</a>
-      </div>
-      <div class="track-row">
-        <div class="track-info">
-          <span class="track-num">03</span>
-          <div>
-            <div class="track-name">One Piece Shanty</div>
-            <div class="track-genre">sea shanty</div>
-          </div>
-        </div>
-        <a class="track-link" href="#">Listen ↗</a>
-      </div>
-      <div class="track-row">
-        <div class="track-info">
-          <span class="track-num">04</span>
-          <div>
-            <div class="track-name">[Latest brostep track]</div>
-            <div class="track-genre">brostep</div>
-          </div>
-        </div>
-        <a class="track-link" href="#">Listen ↗</a>
-      </div>
-    </div>
-
-    <div style="margin-top:24px;">
-      <a class="btn btn-ghost" href="https://suno.com/@generatedbyaccident">Full catalog on Suno →</a>
-    </div>
+    <div class="eyebrow">Now playing</div>
+    <h2 style="margin-bottom:14px; font-size:clamp(1.6rem, 3vw, 2.1rem);">Music — GeneratedByAccident</h2>
+    <p style="max-width:560px; color:var(--text-dim); margin-bottom:24px; font-size:1.02rem;">
+      AI-generated tracks across way too many genres. Every song starts as a bad idea that got finished — live catalog, real tracks, play them right on the page.
+    </p>
+    <a class="btn btn-primary" href="music.html">Listen to the catalog →</a>
   </div>
 </section>
 
@@ -561,7 +541,7 @@
     </div>
 
     <div class="links-grid">
-      <a class="link-card" href="#">
+      <a class="link-card" href="https://github.com/Blackberrii">
         <span class="link-icon">GH</span>
         <div><div class="link-name">GitHub</div><div class="link-sub">Code & repos</div></div>
       </a>
@@ -583,50 +563,18 @@
       Reach me on Discord — <span style="color:var(--purple);">Blackberrii</span>
     </div>
     <span class="flicker">soeloh.com</span> — built by hand, hosted on GitHub Pages
+    <div class="aside" style="margin-top:10px;">
+      Hand-built, mostly by hand, partially by whatever Claude Code felt like doing at 2am.
+      If this breaks, it was probably a semicolon. It's always a semicolon.
+    </div>
   </div>
 </footer>
 
 <script>
-  const bootLines = [
-    { text: "> soeloh.sys", cls: "" },
-    { text: "> horizonsrp.server      [online]", cls: "ok" },
-    { text: "> generatedbyaccident    [synced]", cls: "ok" },
-    { text: "> ready.", cls: "ok" },
-  ];
-
-  const el = document.getElementById('bootText');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function renderStatic(){
-    el.innerHTML = bootLines.map(l => `<div class="line ${l.cls}">${l.text}</div>`).join('');
-  }
-
-  async function typeLines(){
-    for (const line of bootLines){
-      const div = document.createElement('div');
-      div.className = 'line ' + line.cls;
-      el.appendChild(div);
-      for (let i = 0; i <= line.text.length; i++){
-        div.textContent = line.text.slice(0, i);
-        await new Promise(r => setTimeout(r, 12));
-      }
-      await new Promise(r => setTimeout(r, 120));
-    }
-    const cursor = document.createElement('span');
-    cursor.className = 'cursor';
-    el.appendChild(cursor);
-  }
-
-  if (reduceMotion){
-    renderStatic();
-  } else {
-    typeLines();
-  }
-
   (async function loadServerStatus(){
     const badge = document.getElementById('serverBadge');
     const detail = document.getElementById('serverDetail');
-    if (!badge || !detail) return;
+    const heroBadge = document.getElementById('heroHrpBadge');
 
     try {
       const res = await fetch('status.json', { cache: 'no-store' });
@@ -638,16 +586,112 @@
       if (ageMin > 45) throw new Error('stale');
 
       if (data.online){
-        badge.textContent = 'online';
-        badge.className = 'status server-badge live';
-        detail.innerHTML = `Manual connect: <span style="color:var(--purple);">193.243.190.4:27087</span> · ${data.players}/${data.max_players} players on ${data.map}`;
+        if (badge){ badge.textContent = 'online'; badge.className = 'status server-badge live'; }
+        if (heroBadge){ heroBadge.textContent = 'online'; heroBadge.className = 'badge-value ok'; }
+        if (detail) detail.innerHTML = `Manual connect: <span style="color:var(--purple);">193.243.190.4:27087</span> · ${data.players}/${data.max_players} players on ${data.map}`;
       } else {
-        badge.textContent = 'offline';
-        badge.className = 'status server-badge offline';
+        if (badge){ badge.textContent = 'offline'; badge.className = 'status server-badge offline'; }
+        if (heroBadge){ heroBadge.textContent = 'offline'; heroBadge.className = 'badge-value offline'; }
       }
     } catch (e) {
-      badge.textContent = 'status unknown';
-      badge.className = 'status server-badge archived';
+      if (badge){ badge.textContent = 'status unknown'; badge.className = 'status server-badge archived'; }
+      if (heroBadge){ heroBadge.textContent = 'unknown'; heroBadge.className = 'badge-value pending'; }
+    }
+  })();
+
+  function el(tag, className, text){
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  (async function loadGithubData(){
+    const grid = document.getElementById('projectsGrid');
+    const activityCard = document.getElementById('activityCard');
+    const activityWrap = document.getElementById('activityWrap');
+
+    function emptyProjects(message){
+      if (!grid) return;
+      grid.innerHTML = '';
+      const card = el('div', 'card');
+      card.style.opacity = '0.7';
+      card.appendChild(el('span', 'pill', 'github'));
+      card.appendChild(el('h3', null, message));
+      const link = el('a', null, 'View profile on GitHub →');
+      link.href = 'https://github.com/Blackberrii';
+      link.style.color = 'var(--purple)';
+      link.style.fontSize = '0.85rem';
+      card.appendChild(link);
+      grid.appendChild(card);
+    }
+
+    function renderProjects(projects){
+      if (!grid) return;
+      if (!projects.length){
+        emptyProjects('Nothing else public right now.');
+        return;
+      }
+      grid.innerHTML = '';
+      projects.forEach(repo => {
+        const card = el('div', 'card');
+
+        const pills = el('div', 'pill-row');
+        pills.style.marginBottom = '10px';
+        const langs = Array.isArray(repo.languages) ? repo.languages : [];
+        if (langs.length){
+          pills.appendChild(el('span', 'pill', `${langs[0].name} ${langs[0].percent}%`));
+          langs.slice(1).forEach(l => pills.appendChild(el('span', 'pill', l.name)));
+        } else {
+          pills.appendChild(el('span', 'pill', 'code'));
+        }
+        (repo.topics || []).forEach(t => pills.appendChild(el('span', 'pill', t)));
+        card.appendChild(pills);
+
+        card.appendChild(el('h3', null, repo.name));
+        card.appendChild(el('p', null, repo.description || 'No description yet.'));
+
+        const meta = el('div', 'meta');
+        const updated = repo.pushed_at
+          ? new Date(repo.pushed_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+          : 'unknown';
+        meta.appendChild(el('span', null, `Updated ${updated}`));
+        const link = el('a', null, 'View on GitHub →');
+        link.href = repo.url;
+        meta.appendChild(link);
+        card.appendChild(meta);
+
+        grid.appendChild(card);
+      });
+    }
+
+    function renderActivity(activity){
+      if (!activityCard) return;
+      if (!activity.length){
+        if (activityWrap) activityWrap.style.display = 'none';
+        return;
+      }
+      activityCard.innerHTML = '';
+      activity.forEach(item => {
+        const row = document.createElement('a');
+        row.className = 'activity-row';
+        row.href = item.url;
+        row.appendChild(el('span', 'activity-text', item.label));
+        row.appendChild(el('span', 'activity-date', new Date(item.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })));
+        activityCard.appendChild(row);
+      });
+    }
+
+    try {
+      const res = await fetch('github.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error('github.json missing');
+      const data = await res.json();
+
+      renderProjects(Array.isArray(data.projects) ? data.projects : []);
+      renderActivity(Array.isArray(data.activity) ? data.activity : []);
+    } catch (e) {
+      emptyProjects("Live feed didn't load right now.");
+      if (activityWrap) activityWrap.style.display = 'none';
     }
   })();
 </script>

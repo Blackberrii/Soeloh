@@ -1,0 +1,54 @@
+{
+  "projects": [
+    {
+      "name": "StatScape",
+      "description": "A discord bot for pulling stats from the OSRS highscores.",
+      "url": "https://github.com/Blackberrii/StatScape",
+      "languages": [
+        {
+          "name": "Python",
+          "percent": 91.7
+        },
+        {
+          "name": "Shell",
+          "percent": 7.1
+        },
+        {
+          "name": "Dockerfile",
+          "percent": 1.2
+        }
+      ],
+      "topics": [],
+      "stars": 0,
+      "pushed_at": "2025-03-13T16:36:13Z"
+    }
+  ],
+  "activity": [
+    {
+      "label": "Add server status workflow and site assets",
+      "url": "https://github.com/Blackberrii/Soeloh/commit/3ebed9d707077615f042d864b15ebd204dc956ab",
+      "created_at": "2026-08-02T07:15:40Z"
+    },
+    {
+      "label": "Add files via upload",
+      "url": "https://github.com/Blackberrii/Soeloh/commit/3d04a1be1004b54d93c77e32465b821697aadcef",
+      "created_at": "2026-08-02T06:52:24Z"
+    },
+    {
+      "label": "Rename index (1).html to index.html",
+      "url": "https://github.com/Blackberrii/Soeloh/commit/32e740da8ef5829c9907c56167200c21dcc4889e",
+      "created_at": "2026-08-02T06:47:00Z"
+    },
+    {
+      "label": "Add files via upload",
+      "url": "https://github.com/Blackberrii/Soeloh/commit/d5645545fce2cd9e6071294ce6731a4ca6256cc5",
+      "created_at": "2026-08-02T06:46:41Z"
+    },
+    {
+      "label": "Delete index.html",
+      "url": "https://github.com/Blackberrii/Soeloh/commit/78619150420d8847ee9dadeb1e836f545be29b26",
+      "created_at": "2026-08-02T06:46:28Z"
+    }
+  ],
+  "checked_at": "2026-08-02T07:59:00.892155+00:00"
+}

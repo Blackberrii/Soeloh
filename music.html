@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music — soeloh</title>
+<meta name="description" content="GeneratedByAccident — AI-generated music, live catalog pulled straight from Suno.">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0e12'/%3E%3Crect x='1' y='1' width='30' height='30' rx='6' fill='none' stroke='%23232a35'/%3E%3Ctext x='16' y='23' font-family='monospace' font-weight='700' font-size='19' fill='%23b98cff' text-anchor='middle'%3ES%3C/text%3E%3Ccircle cx='25' cy='8' r='2.4' fill='%23d4af37'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="canonical" href="https://soeloh.com/music.html">
+<meta name="theme-color" content="#0b0e12">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="soeloh">
+<meta property="og:title" content="Music — soeloh">
+<meta property="og:description" content="GeneratedByAccident — AI-generated music, live catalog pulled straight from Suno.">
+<meta property="og:url" content="https://soeloh.com/music.html">
+<meta property="og:image" content="https://soeloh.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Music — soeloh">
+<meta name="twitter:description" content="GeneratedByAccident — AI-generated music, live catalog pulled straight from Suno.">
+<meta name="twitter:image" content="https://soeloh.com/assets/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:            #0b0e12;
+    --panel:         #12161d;
+    --panel-2:       #171c25;
+    --line:          #232a35;
+    --text:          #e7ecf2;
+    --text-dim:      #8a94a3;
+    --purple:        #b98cff;
+    --gold:          #d4af37;
+    --danger:        #ff5c5c;
+    --radius:        10px;
+    --font-display:  'Space Grotesk', sans-serif;
+    --font-mono:     'JetBrains Mono', monospace;
+    --font-body:     'IBM Plex Sans', sans-serif;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  .scanlines{
+    pointer-events:none; position:fixed; inset:0; z-index:50;
+    background:repeating-linear-gradient(to bottom, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 3px);
+    mix-blend-mode:overlay;
+  }
+  .vignette{
+    pointer-events:none; position:fixed; inset:0; z-index:49;
+    background:radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.55) 100%);
+  }
+
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 24px; }
+  section{ padding:96px 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+
+  .eyebrow{
+    font-family:var(--font-mono); font-size:0.78rem; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--purple);
+    display:flex; align-items:center; gap:10px; margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:""; width:7px; height:7px; background:var(--purple);
+    box-shadow:0 0 8px var(--purple); display:inline-block;
+  }
+
+  h1,h2,h3{ font-family:var(--font-display); font-weight:600; letter-spacing:-0.01em; }
+  a{ color:inherit; }
+
+  header{
+    position:sticky; top:0; z-index:40;
+    background:rgba(11,14,18,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{ display:flex; align-items:center; justify-content:space-between; padding-top:16px; padding-bottom:16px; }
+  .logo{
+    font-family:var(--font-mono); font-weight:700; font-size:1.05rem;
+    letter-spacing:0.02em; color:var(--text); text-decoration:none;
+  }
+  .logo span{ color:var(--purple); }
+  .navlinks{ display:flex; gap:28px; list-style:none; }
+  .navlinks a{
+    font-family:var(--font-mono); font-size:0.82rem; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--text-dim); text-decoration:none;
+    transition:color .15s ease; position:relative;
+  }
+  .navlinks a:hover, .navlinks a:focus-visible{ color:var(--purple); }
+  .navlinks a:focus-visible{ outline:2px solid var(--purple); outline-offset:4px; }
+  .navlinks a.current{ color:var(--purple); }
+  @media (max-width:640px){ .navlinks{ display:none; } }
+
+  .page-head{ padding:110px 0 60px; border-bottom:1px solid var(--line); }
+  .page-head h1{ font-size:clamp(2rem, 4.5vw, 3rem); margin-top:8px; }
+  .page-head p.lede{ margin-top:16px; max-width:560px; color:var(--text-dim); font-size:1.05rem; }
+
+  .btn{
+    font-family:var(--font-mono); font-size:0.82rem; text-transform:uppercase;
+    letter-spacing:0.06em; padding:12px 20px; border-radius:6px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line);
+    transition:transform .12s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover, .btn:focus-visible{ transform:translateY(-2px); }
+  .btn:focus-visible{ outline:2px solid var(--purple); outline-offset:3px; }
+  .btn-primary{ background:var(--purple); color:#1a0f2e; border-color:var(--purple); font-weight:700; }
+  .btn-primary:hover{ box-shadow:0 0 22px rgba(185,140,255,0.4); }
+  .btn-ghost{ color:var(--text); background:transparent; }
+  .btn-ghost:hover{ border-color:var(--gold); color:var(--gold); }
+
+  .card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; position:relative; transition:border-color .15s ease, transform .15s ease;
+  }
+
+  /* ---------- Asides (flavor text, kept visually separate from real copy) ---------- */
+  .aside{ color:var(--text-dim); font-style:italic; }
+  p.aside{ font-family:var(--font-mono); font-size:0.82rem; opacity:0.85; margin-top:8px; }
+
+  /* ---------- Track list ---------- */
+  .track-row{
+    display:flex; flex-direction:column;
+    padding:16px 0; border-bottom:1px solid var(--line); gap:10px;
+  }
+  .track-row:last-child{ border-bottom:none; }
+  .track-top{ display:flex; align-items:center; gap:14px; justify-content:space-between; }
+  .track-info{ display:flex; align-items:center; gap:14px; min-width:0; }
+  .track-num{ font-family:var(--font-mono); color:var(--text-dim); font-size:0.85rem; width:24px; flex-shrink:0; }
+  .track-name{ font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .track-plays{ font-family:var(--font-mono); font-size:0.72rem; color:var(--text-dim); white-space:nowrap; flex-shrink:0; }
+  .track-link{
+    font-family:var(--font-mono); font-size:0.78rem; text-transform:uppercase;
+    color:var(--purple); text-decoration:none; letter-spacing:0.05em; white-space:nowrap; flex-shrink:0;
+  }
+  .track-link:hover{ text-decoration:underline; }
+  .track-tags{ display:flex; flex-wrap:wrap; gap:6px; padding-left:38px; }
+  .pill{
+    font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.02em;
+    color:var(--text-dim); background:var(--panel-2); border:1px solid var(--line);
+    padding:3px 10px; border-radius:20px; white-space:nowrap;
+  }
+  .track-audio{
+    width:100%; height:32px; margin-left:38px; max-width:calc(100% - 38px);
+    accent-color:var(--purple);
+  }
+  @media (max-width:560px){
+    .track-tags, .track-audio{ padding-left:0; margin-left:0; max-width:100%; }
+  }
+
+  footer{
+    padding:48px 0; text-align:center;
+    font-family:var(--font-mono); font-size:0.78rem; color:var(--text-dim);
+  }
+  footer .flicker{ color:var(--purple); }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scanlines" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<header>
+  <nav class="wrap">
+    <a class="logo" href="index.html">soeloh</a>
+    <ul class="navlinks">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#project">HorizonsRP</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="music.html" class="current">Music</a></li>
+      <li><a href="index.html#links">Links</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="page-head">
+  <div class="wrap">
+    <div class="eyebrow">Now playing</div>
+    <h1>Music — <span style="color:var(--purple);">GeneratedByAccident</span></h1>
+    <p class="lede">AI-generated tracks across way too many genres. Every song starts as a bad idea that got finished — this list is live, pulled straight from Suno, not hand-typed.</p>
+    <p class="aside">The user wants a track listing that doesn't look like a Spotify Wrapped screenshot. This achieves that goal while still technically being a track listing, which is the best anyone can hope for here.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p id="tracksStat" style="font-family:var(--font-mono); font-size:0.78rem; color:var(--text-dim); margin-bottom:4px;"></p>
+    <p class="aside" style="margin-top:0; margin-bottom:16px;">Genre tags are aspirational. Suno decides what it actually made after the fact.</p>
+
+    <div class="card" style="padding:8px 22px;" id="tracksCard">
+      <div class="track-row">
+        <div class="track-top">
+          <div class="track-info">
+            <span class="track-num">·</span>
+            <div class="track-name">Loading catalog…</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;">
+      <a class="btn btn-ghost" href="https://suno.com/@generatedbyaccident">Full profile on Suno →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div style="margin-bottom:14px;">
+      Reach me on Discord — <span style="color:var(--purple);">Blackberrii</span>
+    </div>
+    <span class="flicker">soeloh.com</span> — built by hand, hosted on GitHub Pages
+    <div class="aside" style="margin-top:10px;">
+      Hand-built, mostly by hand, partially by whatever Claude Code felt like doing at 2am.
+      If this breaks, it was probably a semicolon. It's always a semicolon.
+    </div>
+  </div>
+</footer>
+
+<script>
+  function el(tag, className, text){
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  (async function loadTracks(){
+    const card = document.getElementById('tracksCard');
+    const stat = document.getElementById('tracksStat');
+    if (!card) return;
+
+    function showFallback(){
+      card.innerHTML = '';
+      const row = el('div', 'track-row');
+      const top = el('div', 'track-top');
+      top.appendChild(el('div', 'track-name', "Catalog didn't load — hit the button below for the full thing on Suno."));
+      row.appendChild(top);
+      card.appendChild(row);
+    }
+
+    try {
+      const res = await fetch('tracks.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error('tracks.json missing');
+      const data = await res.json();
+      if (!Array.isArray(data.tracks) || !data.tracks.length) throw new Error('no tracks');
+
+      if (stat) stat.textContent = `${data.total_public_clips} tracks published on Suno · showing ${data.tracks.length} most recent`;
+
+      card.innerHTML = '';
+      data.tracks.forEach((track, i) => {
+        const row = el('div', 'track-row');
+
+        const top = el('div', 'track-top');
+        const info = el('div', 'track-info');
+        info.appendChild(el('span', 'track-num', String(i + 1).padStart(2, '0')));
+        info.appendChild(el('div', 'track-name', track.title));
+        top.appendChild(info);
+
+        const right = el('div', 'track-info');
+        if (typeof track.play_count === 'number'){
+          right.appendChild(el('span', 'track-plays', `${track.play_count} plays`));
+        }
+        if (track.url){
+          const link = el('a', 'track-link', 'Suno ↗');
+          link.href = track.url;
+          right.appendChild(link);
+        }
+        top.appendChild(right);
+        row.appendChild(top);
+
+        if (Array.isArray(track.tags) && track.tags.length){
+          const tags = el('div', 'track-tags');
+          track.tags.forEach(t => tags.appendChild(el('span', 'pill', t)));
+          row.appendChild(tags);
+        }
+
+        if (track.audio_url){
+          const audio = document.createElement('audio');
+          audio.className = 'track-audio';
+          audio.controls = true;
+          audio.preload = 'none';
+          audio.src = track.audio_url;
+          row.appendChild(audio);
+        }
+
+        card.appendChild(row);
+      });
+    } catch (e) {
+      if (stat) stat.textContent = '';
+      showFallback();
+    }
+  })();
+</script>
+
+</body>
+</html>
