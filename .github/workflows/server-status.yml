@@ -1,0 +1,34 @@
+name: Update HorizonsRP server status
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: server-status
+  cancel-in-progress: true
+
+jobs:
+  update-status:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Query server status
+        run: python3 scripts/query_status.py
+
+      - name: Commit status.json if changed
+        run: |
+          if git diff --quiet -- status.json; then
+            echo "No change, skipping commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add status.json
+          git commit -m "chore: update server status [skip ci]"
+          git push

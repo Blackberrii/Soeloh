@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — soeloh</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0e12'/%3E%3Crect x='1' y='1' width='30' height='30' rx='6' fill='none' stroke='%23232a35'/%3E%3Ctext x='16' y='23' font-family='monospace' font-weight='700' font-size='19' fill='%23b98cff' text-anchor='middle'%3ES%3C/text%3E%3Ccircle cx='25' cy='8' r='2.4' fill='%23d4af37'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:            #0b0e12;
+    --panel:         #12161d;
+    --panel-2:       #171c25;
+    --line:          #232a35;
+    --text:          #e7ecf2;
+    --text-dim:      #8a94a3;
+    --purple:        #b98cff;
+    --gold:          #d4af37;
+    --radius:        10px;
+    --font-display:  'Space Grotesk', sans-serif;
+    --font-mono:     'JetBrains Mono', monospace;
+    --font-body:     'IBM Plex Sans', sans-serif;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+  .scanlines{
+    pointer-events:none; position:fixed; inset:0; z-index:50;
+    background:repeating-linear-gradient(to bottom, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 3px);
+    mix-blend-mode:overlay;
+  }
+  .vignette{
+    pointer-events:none; position:fixed; inset:0; z-index:49;
+    background:radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.55) 100%);
+  }
+  .terminal{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    max-width:560px;
+    width:100%;
+    box-shadow:0 0 0 1px rgba(185,140,255,0.06), 0 30px 60px -30px rgba(0,0,0,0.7);
+    overflow:hidden;
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 14px;
+    background:var(--panel-2);
+    border-bottom:1px solid var(--line);
+  }
+  .dot{ width:9px; height:9px; border-radius:50%; }
+  .dot.r{ background:#ff5f57; } .dot.y{ background:#febc2e; } .dot.g{ background:#28c840; }
+  .terminal-title{ font-family:var(--font-mono); font-size:0.72rem; color:var(--text-dim); margin-left:6px; }
+  .terminal-body{
+    padding:24px 22px 28px;
+    font-family:var(--font-mono);
+    font-size:0.86rem;
+    color:#c9b6f5;
+  }
+  .terminal-body .line{ margin-bottom:6px; white-space:pre-wrap; }
+  .terminal-body .err{ color:var(--danger, #ff5c5c); }
+  .terminal-body .warn{ color:var(--gold); }
+  .cursor{
+    display:inline-block; width:8px; height:1em; background:var(--purple);
+    vertical-align:text-bottom; animation:blink 1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+  h1{
+    font-family:var(--font-display); font-weight:600; letter-spacing:-0.01em;
+    font-size:clamp(1.8rem, 5vw, 2.4rem);
+    margin-top:26px;
+  }
+  h1 .accent{ color:var(--purple); }
+  p.lede{ margin-top:12px; color:var(--text-dim); font-size:1rem; }
+  .btn{
+    font-family:var(--font-mono); font-size:0.82rem; text-transform:uppercase; letter-spacing:0.06em;
+    padding:12px 20px; border-radius:6px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--line);
+    background:var(--purple); color:#1a0f2e; border-color:var(--purple); font-weight:700;
+    margin-top:28px;
+    transition:transform .12s ease, box-shadow .15s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); box-shadow:0 0 22px rgba(185,140,255,0.4); }
+  @media (prefers-reduced-motion: reduce){ .cursor{ animation:none; } }
+</style>
+</head>
+<body>
+
+<div class="scanlines" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<div>
+  <div class="terminal">
+    <div class="terminal-bar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="terminal-title">root@soeloh — error</span>
+    </div>
+    <div class="terminal-body">
+      <div class="line">&gt; request: GET <span class="warn" id="reqPath">/unknown</span></div>
+      <div class="line err">&gt; status: 404 not_found</div>
+      <div class="line">&gt; ...nothing here.<span class="cursor"></span></div>
+    </div>
+  </div>
+
+  <h1>This page doesn't <span class="accent">exist.</span></h1>
+  <p class="lede">Wrong link, or it moved. Either way, there's nothing at this address.</p>
+  <a class="btn" href="/">Back to soeloh.com →</a>
+</div>
+
+<script>
+  document.getElementById('reqPath').textContent = location.pathname || '/unknown';
+</script>
+
+</body>
+</html>
