@@ -3,25 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Music — soeloh</title>
-<meta name="description" content="GeneratedByAccident — AI-generated music, live catalog pulled straight from Suno.">
+<title>HorizonsRP — soeloh</title>
+<meta name="description" content="HorizonsRP — a Garry's Mod DarkRP server, built and tuned from the ground up.">
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0e12'/%3E%3Crect x='1' y='1' width='30' height='30' rx='6' fill='none' stroke='%23232a35'/%3E%3Ctext x='16' y='23' font-family='monospace' font-weight='700' font-size='19' fill='%23b98cff' text-anchor='middle'%3ES%3C/text%3E%3Ccircle cx='25' cy='8' r='2.4' fill='%23d4af37'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="canonical" href="https://soeloh.com/music.html">
+<link rel="canonical" href="https://soeloh.com/horizonsrp.html">
 <meta name="theme-color" content="#0b0e12">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="soeloh">
-<meta property="og:title" content="Music — soeloh">
-<meta property="og:description" content="GeneratedByAccident — AI-generated music, live catalog pulled straight from Suno.">
-<meta property="og:url" content="https://soeloh.com/music.html">
+<meta property="og:title" content="HorizonsRP — soeloh">
+<meta property="og:description" content="HorizonsRP — a Garry's Mod DarkRP server, built and tuned from the ground up.">
+<meta property="og:url" content="https://soeloh.com/horizonsrp.html">
 <meta property="og:image" content="https://soeloh.com/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Music — soeloh">
-<meta name="twitter:description" content="GeneratedByAccident — AI-generated music, live catalog pulled straight from Suno.">
+<meta name="twitter:title" content="HorizonsRP — soeloh">
+<meta name="twitter:description" content="HorizonsRP — a Garry's Mod DarkRP server, built and tuned from the ground up.">
 <meta name="twitter:image" content="https://soeloh.com/assets/og-image.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -106,7 +106,16 @@
   .navlinks a.current{ color:var(--purple); }
   @media (max-width:640px){ .navlinks{ display:none; } }
 
-  .page-head{ padding:110px 0 60px; border-bottom:1px solid var(--line); }
+  .page-head{
+    padding:110px 0 60px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+    background:
+      linear-gradient(180deg, rgba(11,14,18,0.55), rgba(11,14,18,0.9)),
+      url('assets/horizonsRP-bg.jpg');
+    background-size:cover;
+    background-position:center;
+  }
   .page-head h1{ font-size:clamp(2rem, 4.5vw, 3rem); margin-top:8px; }
   .page-head p.lede{ margin-top:16px; max-width:560px; color:var(--text-dim); font-size:1.05rem; }
 
@@ -123,44 +132,35 @@
   .btn-ghost{ color:var(--text); background:transparent; }
   .btn-ghost:hover{ border-color:var(--gold); color:var(--gold); }
 
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:18px; }
   .card{
     background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
     padding:22px; position:relative; transition:border-color .15s ease, transform .15s ease;
   }
+  .card:hover{ border-color:var(--purple); transform:translateY(-3px); }
+  .card .tag{
+    font-family:var(--font-mono); font-size:0.68rem; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--gold); margin-bottom:10px; display:inline-block;
+  }
+  .card h3{ font-size:1.15rem; margin-bottom:8px; }
+  .card p{ color:var(--text-dim); font-size:0.92rem; }
 
-  /* ---------- Asides (flavor text, kept visually separate from real copy) ---------- */
   .aside{ color:var(--text-dim); font-style:italic; }
   p.aside{ font-family:var(--font-mono); font-size:0.82rem; opacity:0.85; margin-top:8px; }
 
-  /* ---------- Track list ---------- */
-  .track-row{
-    display:flex; flex-direction:column;
-    padding:16px 0; border-bottom:1px solid var(--line); gap:10px;
+  .status{ display:inline-flex; align-items:center; gap:6px; }
+  .status::before{ content:""; width:6px; height:6px; border-radius:50%; }
+  .status.live::before{ background:#28c840; box-shadow:0 0 6px #28c840; }
+  .status.offline::before{ background:var(--danger); box-shadow:0 0 6px var(--danger); }
+  .status.archived::before{ background:var(--text-dim); }
+
+  .server-badge{
+    font-family:var(--font-mono); font-size:0.65rem;
+    padding:4px 10px; border:1px solid var(--line); border-radius:20px;
+    text-transform:uppercase; letter-spacing:0.06em; vertical-align:middle;
   }
-  .track-row:last-child{ border-bottom:none; }
-  .track-top{ display:flex; align-items:center; gap:14px; justify-content:space-between; }
-  .track-info{ display:flex; align-items:center; gap:14px; min-width:0; }
-  .track-num{ font-family:var(--font-mono); color:var(--text-dim); font-size:0.85rem; width:24px; flex-shrink:0; }
-  .track-name{ font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  .track-plays{ font-family:var(--font-mono); font-size:0.72rem; color:var(--text-dim); white-space:nowrap; flex-shrink:0; }
-  .track-link{
-    font-family:var(--font-mono); font-size:0.78rem; text-transform:uppercase;
-    color:var(--purple); text-decoration:none; letter-spacing:0.05em; white-space:nowrap; flex-shrink:0;
-  }
-  .track-link:hover{ text-decoration:underline; }
-  .track-tags{ display:flex; flex-wrap:wrap; gap:6px; padding-left:38px; }
-  .pill{
-    font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.02em;
-    color:var(--text-dim); background:var(--panel-2); border:1px solid var(--line);
-    padding:3px 10px; border-radius:20px; white-space:nowrap;
-  }
-  .track-audio{
-    width:100%; height:32px; margin-left:38px; max-width:calc(100% - 38px);
-    accent-color:var(--purple);
-  }
-  @media (max-width:560px){
-    .track-tags, .track-audio{ padding-left:0; margin-left:0; max-width:100%; }
-  }
+  .hrp-heading{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .hrp-icon{ width:44px; height:44px; border-radius:8px; display:block; }
 
   footer{
     padding:48px 0; text-align:center;
@@ -185,8 +185,8 @@
       <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#blackberryai">BlackberryAI</a></li>
       <li><a href="index.html#projects">Projects</a></li>
-      <li><a href="music.html" class="current">Music</a></li>
-      <li><a href="horizonsrp.html">HorizonsRP</a></li>
+      <li><a href="music.html">Music</a></li>
+      <li><a href="horizonsrp.html" class="current">HorizonsRP</a></li>
       <li><a href="index.html#links">Links</a></li>
     </ul>
   </nav>
@@ -194,31 +194,57 @@
 
 <section class="page-head">
   <div class="wrap">
-    <div class="eyebrow">Now playing</div>
-    <h1>Music — <span style="color:var(--purple);">GeneratedByAccident</span></h1>
-    <p class="lede">AI-generated tracks across way too many genres. Every song starts as a bad idea that got finished — this list is live, pulled straight from Suno, not hand-typed.</p>
-    <p class="aside">The user wants a track listing that doesn't look like a Spotify Wrapped screenshot. This achieves that goal while still technically being a track listing, which is the best anyone can hope for here.</p>
+    <div class="eyebrow">The project</div>
+    <h1 class="hrp-heading">
+      <img class="hrp-icon" src="assets/horizonsrpicon-web.png" alt="" width="44" height="44">
+      HorizonsRP
+      <span id="serverBadge" class="status server-badge archived">checking…</span>
+    </h1>
+    <p class="lede">A Garry's Mod DarkRP server, built and tuned from the ground up. This is where the actual hours go — not a side hustle, not a hosting business, just a server I keep making better: tuning the economy, writing custom jobs, and building out systems players actually notice.</p>
+    <div style="margin-top:28px; display:flex; gap:14px; flex-wrap:wrap; align-items:center;">
+      <a class="btn btn-primary" href="steam://connect/193.243.190.4:27087">Connect via Steam →</a>
+      <a class="btn btn-ghost" href="https://discord.gg/ywQaMYv8qJ">Join the Discord</a>
+    </div>
+    <p id="serverDetail" style="margin-top:14px; font-family:var(--font-mono); font-size:0.8rem; color:var(--text-dim);">
+      Manual connect: <span style="color:var(--purple);">193.243.190.4:27087</span>
+    </p>
+    <p class="aside" style="margin-top:6px;">Uptime not guaranteed, but neither is anything else in life.</p>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <p id="tracksStat" style="font-family:var(--font-mono); font-size:0.78rem; color:var(--text-dim); margin-bottom:4px;"></p>
-    <p class="aside" style="margin-top:0; margin-bottom:16px;">Genre tags are aspirational. Suno decides what it actually made after the fact.</p>
-
-    <div class="card" style="padding:8px 22px;" id="tracksCard">
-      <div class="track-row">
-        <div class="track-top">
-          <div class="track-info">
-            <span class="track-num">·</span>
-            <div class="track-name">Loading catalog…</div>
-          </div>
-        </div>
+    <div class="grid">
+      <div class="card">
+        <span class="tag">Economy</span>
+        <h3>Economy Tuning</h3>
+        <p>Ongoing balance work on the server economy — pay rates, prices, and job payouts tuned so nothing snowballs out of whack.</p>
       </div>
-    </div>
 
-    <div style="margin-top:24px;">
-      <a class="btn btn-ghost" href="https://suno.com/@generatedbyaccident">Full profile on Suno →</a>
+      <div class="card">
+        <span class="tag">Jobs</span>
+        <h3>Custom Jobs</h3>
+        <p>Hand-built jobs on top of the base DarkRP framework, each with their own tools and mechanics.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">UI</span>
+        <h3>Custom HUD</h3>
+        <p>A HUD built specifically for the server, not a stock DarkRP skin.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Casino</span>
+        <h3>Casino & Coinflip</h3>
+        <p>In-server casino systems and coinflip lobbies — a full gambling layer built for the economy.</p>
+        <p class="aside">Yes, the casino is rigged. It's rigged in favor of math, which is somehow worse.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Currency</span>
+        <h3>Credits System</h3>
+        <p>A premium currency layered on top of the server economy.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -237,77 +263,27 @@
 </footer>
 
 <script>
-  function el(tag, className, text){
-    const node = document.createElement(tag);
-    if (className) node.className = className;
-    if (text !== undefined) node.textContent = text;
-    return node;
-  }
-
-  (async function loadTracks(){
-    const card = document.getElementById('tracksCard');
-    const stat = document.getElementById('tracksStat');
-    if (!card) return;
-
-    function showFallback(){
-      card.innerHTML = '';
-      const row = el('div', 'track-row');
-      const top = el('div', 'track-top');
-      top.appendChild(el('div', 'track-name', "Catalog didn't load — hit the button below for the full thing on Suno."));
-      row.appendChild(top);
-      card.appendChild(row);
-    }
+  (async function loadServerStatus(){
+    const badge = document.getElementById('serverBadge');
+    const detail = document.getElementById('serverDetail');
 
     try {
-      const res = await fetch('tracks.json', { cache: 'no-store' });
-      if (!res.ok) throw new Error('tracks.json missing');
+      const res = await fetch('status.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error('status.json missing');
       const data = await res.json();
-      if (!Array.isArray(data.tracks) || !data.tracks.length) throw new Error('no tracks');
+      if (!data.checked_at) throw new Error('no data yet');
 
-      if (stat) stat.textContent = `${data.total_public_clips} tracks published on Suno · showing ${data.tracks.length} most recent`;
+      const ageMin = (Date.now() - new Date(data.checked_at).getTime()) / 60000;
+      if (ageMin > 45) throw new Error('stale');
 
-      card.innerHTML = '';
-      data.tracks.forEach((track, i) => {
-        const row = el('div', 'track-row');
-
-        const top = el('div', 'track-top');
-        const info = el('div', 'track-info');
-        info.appendChild(el('span', 'track-num', String(i + 1).padStart(2, '0')));
-        info.appendChild(el('div', 'track-name', track.title));
-        top.appendChild(info);
-
-        const right = el('div', 'track-info');
-        if (typeof track.play_count === 'number'){
-          right.appendChild(el('span', 'track-plays', `${track.play_count} plays`));
-        }
-        if (track.url){
-          const link = el('a', 'track-link', 'Suno ↗');
-          link.href = track.url;
-          right.appendChild(link);
-        }
-        top.appendChild(right);
-        row.appendChild(top);
-
-        if (Array.isArray(track.tags) && track.tags.length){
-          const tags = el('div', 'track-tags');
-          track.tags.forEach(t => tags.appendChild(el('span', 'pill', t)));
-          row.appendChild(tags);
-        }
-
-        if (track.audio_url){
-          const audio = document.createElement('audio');
-          audio.className = 'track-audio';
-          audio.controls = true;
-          audio.preload = 'none';
-          audio.src = track.audio_url;
-          row.appendChild(audio);
-        }
-
-        card.appendChild(row);
-      });
+      if (data.online){
+        if (badge){ badge.textContent = 'online'; badge.className = 'status server-badge live'; }
+        if (detail) detail.innerHTML = `Manual connect: <span style="color:var(--purple);">193.243.190.4:27087</span> · ${data.players}/${data.max_players} players on ${data.map}`;
+      } else {
+        if (badge){ badge.textContent = 'offline'; badge.className = 'status server-badge offline'; }
+      }
     } catch (e) {
-      if (stat) stat.textContent = '';
-      showFallback();
+      if (badge){ badge.textContent = 'status unknown'; badge.className = 'status server-badge archived'; }
     }
   })();
 </script>
