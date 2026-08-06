@@ -596,7 +596,7 @@
       if (!data.checked_at) throw new Error('no data yet');
 
       const ageMin = (Date.now() - new Date(data.checked_at).getTime()) / 60000;
-      if (ageMin > 45) throw new Error('stale');
+      if (ageMin > 380) throw new Error('stale');
 
       if (data.online){
         heroBadge.textContent = 'online'; heroBadge.className = 'badge-value ok';
