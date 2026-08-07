@@ -470,7 +470,7 @@
     </div>
 
     <p style="max-width:640px; color:var(--text-dim); margin-bottom:20px; font-size:1.02rem;">
-      Instead of handing my one API key straight to friends, this runs a proxy in front of it that issues each person their own rate-limited, budgeted, revocable key — with a full chat UI, web search, and voice transcription on top. No dollar figures shown to anyone, just a plain read on how much of their own limit is left.
+      Instead of handing my one API key straight to friends, this runs a proxy in front of it that issues each person their own rate-limited, budgeted, revocable key — with a full chat UI, a lineup of purpose-built models, a real tool ecosystem, web search, and voice transcription on top. No dollar figures shown to anyone, just a plain read on how much of their own limit is left.
     </p>
 
     <div class="bai-badge-row">
@@ -486,9 +486,13 @@
         <span class="badge-label">router</span>
         <span class="badge-value info">nightshade</span>
       </span>
+      <span class="badge">
+        <span class="badge-label">tools live</span>
+        <span class="badge-value info">16</span>
+      </span>
     </div>
 
-    <p class="aside" style="margin-top:18px; max-width:640px;">Not a from-scratch project, and I won't pretend otherwise — it's a few excellent open-source pieces wired together and pointed at each other until they behaved: <a href="https://github.com/BerriAI/litellm" style="color:var(--purple); text-decoration:none;">LiteLLM</a> fronting the model, <a href="https://github.com/open-webui/open-webui" style="color:var(--purple); text-decoration:none;">Open WebUI</a> for the actual chat, <a href="https://github.com/searxng/searxng" style="color:var(--purple); text-decoration:none;">SearXNG</a> for search, Postgres keeping score, and a Cloudflare Tunnel so nothing has to touch an open port. My contribution was mostly config files and stubbornness.</p>
+    <p class="aside" style="margin-top:18px; max-width:640px;">Not a from-scratch project, and I won't pretend otherwise — it's a few excellent open-source pieces wired together and pointed at each other until they behaved: <a href="https://github.com/BerriAI/litellm" style="color:var(--purple); text-decoration:none;">LiteLLM</a> fronting the models, <a href="https://github.com/open-webui/open-webui" style="color:var(--purple); text-decoration:none;">Open WebUI</a> for the actual chat, <a href="https://github.com/searxng/searxng" style="color:var(--purple); text-decoration:none;">SearXNG</a> for search, Postgres keeping score, and a Cloudflare Tunnel so nothing has to touch an open port. My contribution was mostly config files, custom tools, and stubbornness.</p>
 
     <div class="pill-row" style="margin-top:14px;">
       <span class="pill">LiteLLM</span>
@@ -500,19 +504,35 @@
       <span class="pill">Docker Compose</span>
     </div>
 
-    <div class="grid" style="margin-top:32px;">
+    <h3 style="margin-top:40px; margin-bottom:16px; color:var(--text-dim); font-family:var(--font-mono); font-weight:500; text-transform:uppercase; letter-spacing:0.06em; font-size:0.85rem;">One gateway, a few models</h3>
+    <div class="grid">
       <div class="card">
-        <span class="tag">Access</span>
-        <h3>Per-Friend Keys</h3>
-        <p>Every friend gets their own virtual key with its own budget and rate limit, so one person's usage can never starve or bankrupt everyone else's — and any key can be revoked on its own.</p>
+        <span class="tag">Default</span>
+        <h3>Nightshade</h3>
+        <p>The default, invisible router. It reads every prompt and escalates through fast/medium/heavy tiers automatically — a one-liner gets the cheap fast model, "verify this" or "what's the current rate" gets bumped up to a tier that'll actually check instead of guessing.</p>
       </div>
 
       <div class="card">
-        <span class="tag">Routing</span>
-        <h3>Nightshade Auto-Router</h3>
-        <p>Friends see one model. It reads each prompt and automatically routes to a fast tier for simple stuff and a smarter tier for harder questions — nothing to pick.</p>
+        <span class="tag">Agentic</span>
+        <h3>Blackthorn</h3>
+        <p>A separate, selectable model built around actually finishing multi-step tool-use tasks — chaining searches, calculations, and lookups on its own instead of stopping after one tool call. Runs usage up faster, flagged with a disclaimer when selected.</p>
       </div>
 
+      <div class="card">
+        <span class="tag">Creative</span>
+        <h3>Belladonna</h3>
+        <p>Picked specifically for roleplay and creative writing rather than terse assistant answers — longer, more voice-driven output for people who want that instead of a bullet-point summary.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Vision</span>
+        <h3>Nemotron Vision</h3>
+        <p>Image-capable tier for anything with a picture attached — reads screenshots, photos, and documents instead of politely refusing.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:40px; margin-bottom:16px; color:var(--text-dim); font-family:var(--font-mono); font-weight:500; text-transform:uppercase; letter-spacing:0.06em; font-size:0.85rem;">A real tool ecosystem</h3>
+    <div class="grid">
       <div class="card">
         <span class="tag">Search</span>
         <h3>Private Web Search</h3>
@@ -522,7 +542,13 @@
       <div class="card">
         <span class="tag">Voice</span>
         <h3>Local Transcription</h3>
-        <p>A GPU-backed transcription service running locally — friends can transcribe audio/video without it costing anyone tokens or touching a paid API.</p>
+        <p>A GPU-backed Whisper instance running locally — friends can transcribe audio/video without it costing anyone tokens or touching a paid API.</p>
+      </div>
+
+      <div class="card">
+        <span class="tag">Reasoning</span>
+        <h3>Proactive Tool Use</h3>
+        <p>Models are nudged to reach for a tool on their own when it'd beat a guess — and to prefer the purpose-built tool (calculator, converter) over a generic web search when one exists.</p>
       </div>
 
       <div class="card">
@@ -530,12 +556,24 @@
         <h3>Plain-Language Budget</h3>
         <p>A small line under every reply — "you have roughly X% of your usage left" — no made-up currency, no dollar figures, just an honest read on your real limit.</p>
       </div>
+    </div>
 
-      <div class="card">
-        <span class="tag">Tools</span>
-        <h3>Lightweight Tools</h3>
-        <p>Calculator, weather, unit/currency conversion, Wikipedia lookups, QR codes — one function call each, no multi-step agent loops quietly burning through anyone's budget in the background.</p>
-      </div>
+    <div class="pill-row" style="margin-top:18px;">
+      <span class="pill">Calculator</span>
+      <span class="pill">Unit & Currency Converter</span>
+      <span class="pill">Weather</span>
+      <span class="pill">Wikipedia</span>
+      <span class="pill">QR Codes</span>
+      <span class="pill">Crypto Price</span>
+      <span class="pill">Date Calculator</span>
+      <span class="pill">Dictionary</span>
+      <span class="pill">Holidays</span>
+      <span class="pill">Password Generator</span>
+      <span class="pill">Timezone</span>
+      <span class="pill">URL Shortener</span>
+      <span class="pill">Country Info</span>
+      <span class="pill">Docs Lookup</span>
+      <span class="pill">Joke</span>
     </div>
 
     <p class="aside" style="margin-top:28px;">Invite-only — this runs for friends and family, not the general public. Message me on Discord if you want in.</p>

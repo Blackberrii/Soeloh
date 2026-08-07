@@ -17,6 +17,18 @@ Background info from building this site that isn't obvious from the code alone.
   + Whisper) for friends/family, with per-friend budgeted keys routed through an
   auto-router called "Nightshade". This is the current flagship section on
   `index.html` (`#blackberryai`, replacing the old `#project`/HorizonsRP slot).
+  - **Deliberately kept as a homepage section, not its own page.** A previous pass
+    split it out to `blackberryai.html` (mirroring the music.html/horizonsrp.html
+    pattern) — the user explicitly reverted that and asked for the full content
+    back on `index.html` itself. Don't re-split it out without asking first.
+  - The section now covers the model lineup (Nightshade as the default
+    auto-router; "Blackthorn" as a separate selectable agentic/tool-use model,
+    heavier and flagged with a usage disclaimer when picked; "Belladonna" for
+    roleplay/creative writing; a vision-capable tier) and the tool ecosystem
+    (16 custom tools, proactive tool-calling, private search, local
+    transcription, plain-language usage%). These are in-house display names for
+    the underlying models, matching the existing "Nightshade" naming convention
+    — real backing models/vendors are not named on the site, same as before.
   - **Invite-only, not public signup** — per explicit decision, the site describes
     what it is (stack, features) but does NOT publish the actual chat URL/domain.
     Only a Discord contact ("message me for access") is given. Don't add a direct
