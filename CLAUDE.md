@@ -22,13 +22,20 @@ Background info from building this site that isn't obvious from the code alone.
     pattern) — the user explicitly reverted that and asked for the full content
     back on `index.html` itself. Don't re-split it out without asking first.
   - The section now covers the model lineup (Nightshade as the default
-    auto-router; "Blackthorn" as a separate selectable agentic/tool-use model,
-    heavier and flagged with a usage disclaimer when picked; "Belladonna" for
-    roleplay/creative writing; a vision-capable tier) and the tool ecosystem
-    (16 custom tools, proactive tool-calling, private search, local
-    transcription, plain-language usage%). These are in-house display names for
-    the underlying models, matching the existing "Nightshade" naming convention
-    — real backing models/vendors are not named on the site, same as before.
+    auto-router; "Belladonna" for roleplay/creative writing; a vision-capable
+    tier) and the tool ecosystem (16 custom tools, proactive tool-calling,
+    private search, local transcription, plain-language usage%). These are
+    in-house display names for the underlying models, matching the existing
+    "Nightshade" naming convention — real backing models/vendors are not
+    named on the site, same as before.
+  - "Blackthorn" (a Hermes Agent-backed agentic/tool-use model) briefly
+    existed here as a fourth lineup entry (2026-08-07/08) but was fully
+    decommissioned (2026-08-08) - the maintenance cost (its own container,
+    key management, config-drift bugs) outweighed the demonstrated value once
+    DeepSeek/Nightshade's own proactive tool-calling turned out to cover the
+    same ground for how friends actually use it. Don't reintroduce a
+    Hermes/Blackthorn-style agentic model card without a real, current
+    instance backing it.
   - **Invite-only, not public signup** — per explicit decision, the site describes
     what it is (stack, features) but does NOT publish the actual chat URL/domain.
     Only a Discord contact ("message me for access") is given. Don't add a direct
