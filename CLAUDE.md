@@ -22,12 +22,22 @@ Background info from building this site that isn't obvious from the code alone.
     pattern) — the user explicitly reverted that and asked for the full content
     back on `index.html` itself. Don't re-split it out without asking first.
   - The section now covers the model lineup (Nightshade as the default
-    auto-router; "Belladonna" for roleplay/creative writing; a vision-capable
-    tier) and the tool ecosystem (16 custom tools, proactive tool-calling,
-    private search, local transcription, plain-language usage%). These are
-    in-house display names for the underlying models, matching the existing
-    "Nightshade" naming convention — real backing models/vendors are not
-    named on the site, same as before.
+    auto-router; "Belladonna" as the vision-capable tier) and the tool
+    ecosystem (42 custom tools, proactive tool-calling, private search,
+    real code execution, plain-language usage%). These are in-house display
+    names for the underlying models, matching the existing "Nightshade"
+    naming convention — real backing models/vendors are not named on the
+    site, same as before.
+  - "Belladonna" used to be two different things at two different points:
+    briefly a separate roleplay/creative-writing model (decommissioned,
+    removed from the lineup card entirely - don't reintroduce a creative-
+    writing card without a real instance backing it), then later reused as
+    the display name for the renamed vision tier (previously shown here as
+    "Nemotron Vision"). The site now only reflects the current meaning -
+    vision. Local transcription (previously a "Voice" tool card, backed by
+    a self-hosted Whisper instance) was also decommissioned and removed from
+    the tool cards and the top pill-row - don't reintroduce either without a
+    real live instance backing it.
   - "Blackthorn" (a Hermes Agent-backed agentic/tool-use model) briefly
     existed here as a fourth lineup entry (2026-08-07/08) but was fully
     decommissioned (2026-08-08) - the maintenance cost (its own container,

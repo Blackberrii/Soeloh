@@ -470,7 +470,7 @@
     </div>
 
     <p style="max-width:640px; color:var(--text-dim); margin-bottom:20px; font-size:1.02rem;">
-      Instead of handing my one API key straight to friends, this runs a proxy in front of it that issues each person their own rate-limited, budgeted, revocable key — with a full chat UI, a lineup of purpose-built models, a real tool ecosystem, web search, and voice transcription on top. No dollar figures shown to anyone, just a plain read on how much of their own limit is left.
+      Instead of handing my one API key straight to friends, this runs a proxy in front of it that issues each person their own rate-limited, budgeted, revocable key — with a full chat UI, a lineup of purpose-built models, a real tool ecosystem, and private web search on top. No dollar figures shown to anyone, just a plain read on how much of their own limit is left.
     </p>
 
     <div class="bai-badge-row">
@@ -488,7 +488,7 @@
       </span>
       <span class="badge">
         <span class="badge-label">tools live</span>
-        <span class="badge-value info">16</span>
+        <span class="badge-value info">42</span>
       </span>
     </div>
 
@@ -500,28 +500,21 @@
       <span class="pill">SearXNG</span>
       <span class="pill">PostgreSQL</span>
       <span class="pill">Cloudflare Tunnel</span>
-      <span class="pill">Whisper</span>
       <span class="pill">Docker Compose</span>
     </div>
 
-    <h3 style="margin-top:40px; margin-bottom:16px; color:var(--text-dim); font-family:var(--font-mono); font-weight:500; text-transform:uppercase; letter-spacing:0.06em; font-size:0.85rem;">One gateway, a few models</h3>
+    <h3 style="margin-top:40px; margin-bottom:16px; color:var(--text-dim); font-family:var(--font-mono); font-weight:500; text-transform:uppercase; letter-spacing:0.06em; font-size:0.85rem;">One gateway, a couple of models</h3>
     <div class="grid">
       <div class="card">
         <span class="tag">Default</span>
         <h3>Nightshade</h3>
-        <p>The default, invisible router. It reads every prompt and escalates through fast/medium/heavy tiers automatically — a one-liner gets the cheap fast model, "verify this" or "what's the current rate" gets bumped up to a tier that'll actually check instead of guessing.</p>
-      </div>
-
-      <div class="card">
-        <span class="tag">Creative</span>
-        <h3>Belladonna</h3>
-        <p>Picked specifically for roleplay and creative writing rather than terse assistant answers — longer, more voice-driven output for people who want that instead of a bullet-point summary.</p>
+        <p>The default, invisible router. It reads every prompt and escalates through fast/medium/heavy tiers automatically — a one-liner gets the cheap fast model, "verify this" or "write me a function" gets bumped up to a tier that'll actually check or reason instead of guessing.</p>
       </div>
 
       <div class="card">
         <span class="tag">Vision</span>
-        <h3>Nemotron Vision</h3>
-        <p>Image-capable tier for anything with a picture attached — reads screenshots, photos, and documents instead of politely refusing.</p>
+        <h3>Belladonna</h3>
+        <p>Image-capable tier for anything with a picture attached — reads screenshots, photos, and documents instead of politely refusing. Swapped to a stronger model after the previous one confidently made up details on a real test photo.</p>
       </div>
     </div>
 
@@ -534,9 +527,9 @@
       </div>
 
       <div class="card">
-        <span class="tag">Voice</span>
-        <h3>Local Transcription</h3>
-        <p>A GPU-backed Whisper instance running locally — friends can transcribe audio/video without it costing anyone tokens or touching a paid API.</p>
+        <span class="tag">Code</span>
+        <h3>Real Code Execution</h3>
+        <p>Not just Python — code gets actually run and checked against test cases in over a dozen languages before an answer comes back, instead of eyeballing whether it looks right.</p>
       </div>
 
       <div class="card">
@@ -558,7 +551,7 @@
       <span class="pill">Weather</span>
       <span class="pill">Wikipedia</span>
       <span class="pill">QR Codes</span>
-      <span class="pill">Crypto Price</span>
+      <span class="pill">Crypto & Stock Prices</span>
       <span class="pill">Date Calculator</span>
       <span class="pill">Dictionary</span>
       <span class="pill">Holidays</span>
@@ -567,6 +560,13 @@
       <span class="pill">URL Shortener</span>
       <span class="pill">Country Info</span>
       <span class="pill">Docs Lookup</span>
+      <span class="pill">Recipes</span>
+      <span class="pill">Trivia</span>
+      <span class="pill">News</span>
+      <span class="pill">Sports Scores</span>
+      <span class="pill">GitHub Lookup</span>
+      <span class="pill">Random Facts</span>
+      <span class="pill">Sun & Moon Times</span>
       <span class="pill">Joke</span>
     </div>
 
