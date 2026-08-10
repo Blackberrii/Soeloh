@@ -13,12 +13,13 @@ Background info from building this site that isn't obvious from the code alone.
 
 ## What's actually real (safe to feature/expand)
 
-- **BlackberryAI** — a self-hosted LLM gateway (LiteLLM proxy + Open WebUI + SearXNG
-  + Whisper) for friends/family, with per-friend budgeted keys routed through an
-  auto-router called "Nightshade". This is the current flagship section on
-  `index.html` (`#blackberryai`, replacing the old `#project`/HorizonsRP slot).
+- **Blackthorn** (renamed from "BlackberryAI", 2026-08-10 — see note below on the
+  name's earlier, unrelated use) — a self-hosted LLM gateway (LiteLLM proxy + Open
+  WebUI + SearXNG) for friends/family, with per-friend budgeted keys routed through
+  an auto-router called "Nightshade". This is the current flagship section on
+  `index.html` (`#blackthorn`, replacing the old `#project`/HorizonsRP slot).
   - **Deliberately kept as a homepage section, not its own page.** A previous pass
-    split it out to `blackberryai.html` (mirroring the music.html/horizonsrp.html
+    split it out to its own page (mirroring the music.html/horizonsrp.html
     pattern) — the user explicitly reverted that and asked for the full content
     back on `index.html` itself. Don't re-split it out without asking first.
   - The section now covers the model lineup (Nightshade as the default
@@ -38,14 +39,17 @@ Background info from building this site that isn't obvious from the code alone.
     a self-hosted Whisper instance) was also decommissioned and removed from
     the tool cards and the top pill-row - don't reintroduce either without a
     real live instance backing it.
-  - "Blackthorn" (a Hermes Agent-backed agentic/tool-use model) briefly
-    existed here as a fourth lineup entry (2026-08-07/08) but was fully
-    decommissioned (2026-08-08) - the maintenance cost (its own container,
-    key management, config-drift bugs) outweighed the demonstrated value once
-    DeepSeek/Nightshade's own proactive tool-calling turned out to cover the
-    same ground for how friends actually use it. Don't reintroduce a
-    Hermes/Blackthorn-style agentic model card without a real, current
-    instance backing it.
+  - **Naming note on "Blackthorn":** the name was briefly used before, for something
+    unrelated — a Hermes Agent-backed agentic/tool-use model card that existed as a
+    fourth lineup entry (2026-08-07/08) then was fully decommissioned (2026-08-08).
+    The maintenance cost (its own container, key management, config-drift bugs)
+    outweighed the demonstrated value once DeepSeek/Nightshade's own proactive
+    tool-calling turned out to cover the same ground for how friends actually use
+    it. That guidance still applies on its own terms — don't reintroduce a
+    Hermes/bolt-on-style agentic model *card* without a real, current instance
+    backing it. Separately, as of 2026-08-10 "Blackthorn" was reused as the name of
+    the *entire project* (formerly "BlackberryAI") — a different and much bigger
+    thing than the old model card, not a revival of it.
   - **Invite-only, not public signup** — per explicit decision, the site describes
     what it is (stack, features) but does NOT publish the actual chat URL/domain.
     Only a Discord contact ("message me for access") is given. Don't add a direct
@@ -53,13 +57,13 @@ Background info from building this site that isn't obvious from the code alone.
     privacy choice, not an oversight.
   - No live status badge for this (unlike HorizonsRP) — there's no public
     equivalent of `status.json` for it, and shouldn't be exposed for an
-    invite-only service anyway. The hero's "blackberryai · live" badge is static,
+    invite-only service anyway. The hero's "blackthorn · live" badge is static,
     not fetched.
   - Source project lives in a separate local directory, not this repo.
 
 - **HorizonsRP** — a Garry's Mod DarkRP server. Now has its own page,
   `horizonsrp.html`, rather than being a section of `index.html` (moved out once
-  BlackberryAI became the flagship project — same pattern as `music.html` getting
+  Blackthorn became the flagship project — same pattern as `music.html` getting
   split out earlier). Still linked from nav on every page, the hero, and the
   Links section. Real features: economy tuning, custom jobs, custom HUD,
   casino/coinflip systems, a "Credits" premium currency. (E2/Wiremod scripting was
@@ -161,7 +165,7 @@ across the live-data sections now, not something specific to music.
 ## Deploy
 
 - Static site, meant for GitHub Pages: `index.html` (hub — hero, about,
-  BlackberryAI, Active Projects, music teaser, links), `horizonsrp.html`
+  Blackthorn, Active Projects, music teaser, links), `horizonsrp.html`
   (full HorizonsRP server page), `music.html` (full Suno catalog), and
   `404.html`. Multi-page now, but still hand-written files, not a build
   pipeline — no shared stylesheet, so base CSS (design tokens, nav, scanlines,
