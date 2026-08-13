@@ -25,30 +25,30 @@
   ],
   "activity": [
     {
-      "label": "Add live-data scripts, music page & assets",
-      "url": "https://github.com/Blackberrii/Soeloh/commit/00ba3372ca6e07e24c03314de08b54cc1b855721",
-      "created_at": "2026-08-02T08:14:26Z"
+      "label": "Add flowing neon cursor: tapered chain trail settling into a resting dot",
+      "url": "https://github.com/Blackberrii/Soeloh/commit/d2a18a00ac2d6fab0ae1fc35ed02f3a552e36942",
+      "created_at": "2026-08-13T04:42:39Z"
     },
     {
-      "label": "Add server status workflow and site assets",
-      "url": "https://github.com/Blackberrii/Soeloh/commit/3ebed9d707077615f042d864b15ebd204dc956ab",
-      "created_at": "2026-08-02T07:15:40Z"
+      "label": "Rename BlackberryAI -> Blackthorn",
+      "url": "https://github.com/Blackberrii/Soeloh/commit/efbd1252bc3fd94e439694f137b1dd17b6aae078",
+      "created_at": "2026-08-10T05:47:16Z"
     },
     {
-      "label": "Add files via upload",
-      "url": "https://github.com/Blackberrii/Soeloh/commit/3d04a1be1004b54d93c77e32465b821697aadcef",
-      "created_at": "2026-08-02T06:52:24Z"
+      "label": "Update BlackberryAI section: current model lineup, tool count, remove dead features",
+      "url": "https://github.com/Blackberrii/Soeloh/commit/464d1976d65b264b4e0f475363ec7b995c7c5bf7",
+      "created_at": "2026-08-10T02:44:01Z"
     },
     {
-      "label": "Rename index (1).html to index.html",
-      "url": "https://github.com/Blackberrii/Soeloh/commit/32e740da8ef5829c9907c56167200c21dcc4889e",
-      "created_at": "2026-08-02T06:47:00Z"
+      "label": "Remove Blackthorn from the BlackberryAI model lineup",
+      "url": "https://github.com/Blackberrii/Soeloh/commit/c3acb61270127810abd347eb57921e32c017aa50",
+      "created_at": "2026-08-08T10:11:14Z"
     },
     {
-      "label": "Add files via upload",
-      "url": "https://github.com/Blackberrii/Soeloh/commit/d5645545fce2cd9e6071294ce6731a4ca6256cc5",
-      "created_at": "2026-08-02T06:46:41Z"
+      "label": "Update BlackberryAI homepage section with model lineup and tool ecosystem",
+      "url": "https://github.com/Blackberrii/Soeloh/commit/4dfa8b45bda18fb052ecebfee534bd66f1c78698",
+      "created_at": "2026-08-07T17:26:29Z"
     }
   ],
-  "checked_at": "2026-08-04T03:26:53.516056+00:00"
+  "checked_at": "2026-08-13T06:14:51.018158+00:00"
 }
