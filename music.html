@@ -331,6 +331,238 @@
     }
   })();
 </script>
+<!-- Flowing cursor system -->
+<style>
+  #springyCursor{
+    position:fixed; top:0; left:0; width:100vw; height:100vh;
+    z-index:999999; pointer-events:none;
+    display:none; opacity:1; transition:opacity .2s ease;
+  }
+  @media (pointer:fine) and (prefers-reduced-motion:no-preference){
+    html.springy-cursor #springyCursor{ display:block; }
+    html.springy-cursor, html.springy-cursor *{ cursor:none !important; }
+  }
+</style>
+
+<canvas id="springyCursor" aria-hidden="true"></canvas>
+
+<script>
+(function(){
+  'use strict';
+  /* Flowing cursor — one continuous shape, one draw call for the outline,
+     always. There is no separate "resting" shape swapped in — that's what
+     caused the pop. Instead every outline vertex is a lerp between two
+     point sets computed from the SAME chain data:
+       - the tapered ribbon outline (chain points offset perpendicular to
+         their local direction, tapering to a point at both ends)
+       - an evenly-spaced circle around the chain's centroid
+     blended by how "formed" the chain currently is (tip-to-tail spread vs
+     IDLE_SPREAD).
+
+     The chain itself: point 0 is pinned to the mouse, every later point
+     just chases the point ahead of it (p[i] += (p[i-1]-p[i]) * FOLLOW).
+     Fast motion stretches it out for free; stopping lets it gather back in.
+
+     Color: a deep-purple-led gradient (GRAD_STOPS) — dark purple is the
+     dominant band, gold/violet are accents either side. The stop offsets
+     drift slowly over time (and more while moving) for a subtle shimmer,
+     always re-sorted before being handed to the canvas gradient so the
+     motion can never invert the color order. Endpoints track the same
+     tip/rest blend as the outline so the spread always matches the
+     shape's actual length instead of clamping into flat halves. A soft
+     blurred under-pass gives it a bloom halo, and a small additive radial
+     highlight at the tip reads as a glint.
+
+     Fine-pointer + reduced-motion gated (native cursor restored on touch or
+     reduced motion); native cursor restored on error. */
+  var fine = window.matchMedia('(pointer: fine)');
+  var motion = window.matchMedia('(prefers-reduced-motion: no-preference)');
+  if (!fine.matches || !motion.matches) return;
+  var canvas = document.getElementById('springyCursor');
+  if (!canvas) return;
+  document.documentElement.classList.add('springy-cursor');
+
+  var INTERACTIVE = 'a, button, input, select, textarea, summary, [role="button"], [onclick], .btn, .pill';
+
+  var N = 12;             // chain length (tip + trailing links)
+  var FOLLOW = 0.2;       // per-link chase rate (tight trail)
+  var MAX_WIDTH = 15;     // widest point of the ribbon, at mid-chain
+  var REST_R = 7;         // radius of the resting circle
+  var IDLE_SPREAD = 26;   // tip-to-tail px above which the shape is fully the ribbon
+  var PRESS_SCALE = 0.85;
+
+  /* deep dark purple leads, gold + violet as complementary accents either
+     side; offsets are non-uniform on purpose so purple owns the middle */
+  var GRAD_STOPS = [
+    [[0.00, '#f6e2ab'], [0.14, '#d4af37'], [0.34, '#5b2a86'], [0.50, '#2f1150'], [0.68, '#3c1568'], [0.86, '#8a3ffc'], [1.00, '#1b0930']],
+    [[0.00, '#fff3cf'], [0.14, '#f0c24d'], [0.34, '#7d3fc9'], [0.50, '#3a1568'], [0.68, '#4b1f82'], [0.86, '#c026d3'], [1.00, '#22093d']]
+  ];
+  var GLINT = ['rgba(246,226,171,0.9)', 'rgba(255,243,207,0.95)'];
+
+  var ctx = canvas.getContext('2d');
+  var mouse = { x: -100, y: -100, active: false };
+  var press = 1, pressTarget = 1;
+  var chain = [];
+  for (var ci = 0; ci < N; ci++) chain.push({ x: -100, y: -100 });
+  var restDX = 0, restDY = -1; // last known heading, reused when a link goes static
+
+  function resizeCanvas(){
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(window.innerWidth * dpr);
+    canvas.height = Math.round(window.innerHeight * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  window.addEventListener('mousemove', function(e){
+    mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true;
+    var el = document.elementFromPoint(mouse.x, mouse.y);
+    canvas.classList.toggle('hover', !!(el && el.closest(INTERACTIVE)));
+  });
+  window.addEventListener('mousedown', function(){ pressTarget = PRESS_SCALE; });
+  window.addEventListener('mouseup', function(){ pressTarget = 1; });
+  document.documentElement.addEventListener('mouseleave', function(){ canvas.style.opacity = 0; });
+  document.documentElement.addEventListener('mouseenter', function(){ canvas.style.opacity = 1; });
+
+  function simulate(){
+    if (!mouse.active) return;
+    chain[0].x = mouse.x;
+    chain[0].y = mouse.y;
+    for (var i = 1; i < N; i++){
+      chain[i].x += (chain[i - 1].x - chain[i].x) * FOLLOW;
+      chain[i].y += (chain[i - 1].y - chain[i].y) * FOLLOW;
+    }
+  }
+
+  /* builds a canvas gradient with the given stops, drifting each offset by
+     a small time-based wave (more while moving) and re-sorting so the
+     color order can never invert */
+  function shimmerGradient(x0, y0, x1, y1, stops, tSec, amp){
+    var live = [];
+    for (var i = 0; i < stops.length; i++){
+      var off = stops[i][0] + Math.sin(tSec * 1.3 + i * 1.7) * amp;
+      if (off < 0) off = 0; if (off > 1) off = 1;
+      live.push([off, stops[i][1]]);
+    }
+    live.sort(function(a, b){ return a[0] - b[0]; });
+    var g = ctx.createLinearGradient(x0, y0, x1, y1);
+    for (var j = 0; j < live.length; j++) g.addColorStop(live[j][0], live[j][1]);
+    return g;
+  }
+
+  function render(t){
+    var hover = canvas.classList.contains('hover');
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+    var tail = chain[N - 1];
+    var spread = Math.sqrt(Math.pow(chain[0].x - tail.x, 2) + Math.pow(chain[0].y - tail.y, 2));
+    var formed = Math.min(spread / IDLE_SPREAD, 1); // 1 = full ribbon, 0 = full resting circle
+
+    var cx = 0, cy = 0;
+    for (var s = 0; s < N; s++){ cx += chain[s].x; cy += chain[s].y; }
+    cx /= N; cy /= N;
+
+    var total = N * 2;
+    var outline = [];
+    for (var i = 0; i < N; i++){
+      var p0 = chain[i > 0 ? i - 1 : 0];
+      var p1 = chain[i < N - 1 ? i + 1 : N - 1];
+      var dx = p1.x - p0.x, dy = p1.y - p0.y;
+      var len = Math.sqrt(dx*dx + dy*dy);
+      var ux, uy;
+      if (len > 0.5){ ux = dx / len; uy = dy / len; if (i === 0){ restDX = ux; restDY = uy; } }
+      else { ux = restDX; uy = restDY; }
+      var nx = -uy, ny = ux;
+      var w = MAX_WIDTH * Math.sin(Math.PI * i / (N - 1));
+      outline[i] = { x: chain[i].x + nx * w * 0.5, y: chain[i].y + ny * w * 0.5 };
+      outline[total - 1 - i] = { x: chain[i].x - nx * w * 0.5, y: chain[i].y - ny * w * 0.5 };
+    }
+
+    ctx.save();
+    ctx.translate(chain[0].x, chain[0].y);
+    ctx.scale(press, press);
+    ctx.translate(-chain[0].x, -chain[0].y);
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+
+    ctx.beginPath();
+    for (var k = 0; k < total; k++){
+      var ang = Math.PI * 2 * k / total;
+      var rx = cx + Math.cos(ang) * REST_R;
+      var ry = cy + Math.sin(ang) * REST_R;
+      var px = outline[k].x + (rx - outline[k].x) * (1 - formed);
+      var py = outline[k].y + (ry - outline[k].y) * (1 - formed);
+      if (k === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+
+    /* gradient endpoints track the same tip/rest blend as the outline, so
+       the color spread always matches the shape's actual current length */
+    var gtx = chain[0].x + (cx - chain[0].x) * (1 - formed) - restDX * REST_R * (1 - formed);
+    var gty = chain[0].y + (cy - chain[0].y) * (1 - formed) - restDY * REST_R * (1 - formed);
+    var gbx = tail.x + (cx - tail.x) * (1 - formed) + restDX * REST_R * (1 - formed);
+    var gby = tail.y + (cy - tail.y) * (1 - formed) + restDY * REST_R * (1 - formed);
+    var stops = GRAD_STOPS[hover ? 1 : 0];
+    var tSec = t / 1000;
+    var shimmerAmp = 0.015 + 0.03 * formed;
+
+    /* soft blurred under-pass for a bloom halo */
+    ctx.save();
+    ctx.globalAlpha = 0.4;
+    ctx.shadowColor = stops[3][1];
+    ctx.shadowBlur = 16;
+    ctx.fillStyle = shimmerGradient(gtx, gty, gbx, gby, stops, tSec, shimmerAmp);
+    ctx.fill();
+    ctx.restore();
+
+    /* crisp main fill on top */
+    ctx.shadowColor = stops[4][1];
+    ctx.shadowBlur = 7;
+    ctx.fillStyle = shimmerGradient(gtx, gty, gbx, gby, stops, tSec, shimmerAmp);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.lineWidth = 1.25;
+    ctx.strokeStyle = 'rgba(11,14,18,0.6)';
+    ctx.stroke();
+
+    /* small additive glint at the tip */
+    ctx.save();
+    ctx.clip();
+    ctx.globalCompositeOperation = 'lighter';
+    var rg = ctx.createRadialGradient(chain[0].x, chain[0].y, 0, chain[0].x, chain[0].y, MAX_WIDTH * 0.9);
+    rg.addColorStop(0, GLINT[hover ? 1 : 0]);
+    rg.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = rg;
+    ctx.fillRect(chain[0].x - MAX_WIDTH, chain[0].y - MAX_WIDTH, MAX_WIDTH * 2, MAX_WIDTH * 2);
+    ctx.restore();
+
+    ctx.restore();
+  }
+
+  var raf = null;
+  function frame(t){
+    try {
+      if (document.hidden){ raf = null; return; }
+      simulate();
+      press += (pressTarget - press) * 0.35;
+      if (mouse.active) render(t || 0);
+      raf = requestAnimationFrame(frame);
+    } catch (err){
+      if (raf){ cancelAnimationFrame(raf); raf = null; }
+      document.documentElement.classList.remove('springy-cursor');
+    }
+  }
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden && raf){ cancelAnimationFrame(raf); raf = null; }
+    else if (!document.hidden && !raf){ raf = requestAnimationFrame(frame); }
+  });
+  raf = requestAnimationFrame(frame);
+})();
+</script>
+
+
+
 
 </body>
 </html>
