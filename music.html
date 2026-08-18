@@ -77,7 +77,7 @@
   }
   .eyebrow::before{
     content:""; width:7px; height:7px; background:var(--purple);
-    box-shadow:0 0 8px var(--purple); display:inline-block;
+    display:inline-block; animation:nebula-glow-pulse 4s ease-in-out infinite;
   }
 
   h1,h2,h3{ font-family:var(--font-display); font-weight:600; letter-spacing:-0.01em; }
@@ -171,13 +171,17 @@
   /* ---------- Nebula gradient glow (ported from the Blackthorn app's own
      accent treatment - genre pills get the violet/indigo/gold "spark"
      variant, echoing this page's own purple/gold pill border). ---------- */
+  @keyframes nebula-glow-pulse{
+    0%,100%{ box-shadow:0 0 8px rgba(217,70,239,0.4), 0 0 14px rgba(124,58,237,0.3); }
+    50%{ box-shadow:0 0 14px rgba(217,70,239,0.6), 0 0 24px rgba(59,130,246,0.45); }
+  }
   @keyframes nebula-spark-glow-pulse{
     0%,100%{ box-shadow:0 0 6px rgba(124,58,237,0.35), 0 0 12px rgba(245,158,11,0.2); }
     50%{ box-shadow:0 0 12px rgba(124,58,237,0.6), 0 0 20px rgba(245,158,11,0.4); }
   }
   .nebula-spark-glow{ animation:nebula-spark-glow-pulse 3s ease-in-out infinite; }
   @media (prefers-reduced-motion: reduce){
-    .nebula-spark-glow{ animation:none; }
+    .nebula-spark-glow, .eyebrow::before{ animation:none; }
   }
   .track-audio{
     width:100%; height:32px; margin-left:38px; max-width:calc(100% - 38px);
