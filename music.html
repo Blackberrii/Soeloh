@@ -299,13 +299,19 @@
   var ctx = canvas.getContext('2d');
   var reduceMotion = !window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
 
+  /* Rich purple + gold carry the scene (matching the site's own --purple/
+     --gold brand colors, not a generic multi-hue space-photo mix);
+     magenta and blue stay in as small, low-alpha accent hints rather
+     than equal partners. */
   var BLOB_DEFS = [
-    { color:'139,92,246', r:0.34, alpha:0.20, x:0.08, y:0.04 },
-    { color:'90,40,150',  r:0.28, alpha:0.24, x:0.95, y:0.18 },
-    { color:'217,70,239', r:0.30, alpha:0.16, x:0.15, y:0.55 },
-    { color:'59,130,246', r:0.30, alpha:0.16, x:1.00, y:0.68 },
-    { color:'90,40,150',  r:0.32, alpha:0.20, x:0.10, y:0.95 },
-    { color:'212,175,55', r:0.14, alpha:0.06, x:0.88, y:0.92 }
+    { color:'185,140,255', r:0.32, alpha:0.22, x:0.08, y:0.04 },
+    { color:'139,92,246',  r:0.30, alpha:0.20, x:0.95, y:0.18 },
+    { color:'90,40,150',   r:0.34, alpha:0.24, x:0.15, y:0.55 },
+    { color:'212,175,55',  r:0.26, alpha:0.14, x:1.00, y:0.68 },
+    { color:'90,40,150',   r:0.32, alpha:0.22, x:0.10, y:0.95 },
+    { color:'212,175,55',  r:0.20, alpha:0.09, x:0.88, y:0.92 },
+    { color:'217,70,239',  r:0.16, alpha:0.07, x:0.55, y:0.10 },
+    { color:'59,130,246',  r:0.16, alpha:0.06, x:0.45, y:0.80 }
   ];
   var blobs = [];
   var STAR_COUNT = 160;
