@@ -150,7 +150,7 @@
 
   .status{ display:inline-flex; align-items:center; gap:6px; }
   .status::before{ content:""; width:6px; height:6px; border-radius:50%; }
-  .status.live::before{ background:#28c840; box-shadow:0 0 6px #28c840; }
+  .status.live::before{ background:#28c840; animation:nebula-signal-glow-pulse 2s ease-in-out infinite; }
   .status.offline::before{ background:var(--danger); box-shadow:0 0 6px var(--danger); }
   .status.archived::before{ background:var(--text-dim); }
 
@@ -189,6 +189,23 @@
       linear-gradient(120deg, var(--purple), var(--gold)) border-box;
     box-shadow:0 0 10px rgba(101,68,163,0.3);
     transform:translateY(-1px);
+  }
+
+  /* ---------- Nebula gradient glow (ported from the Blackthorn app's own
+     accent treatment) - green/teal "signal" pulse for the live-status dot,
+     violet/gold "spark" for feature pills. ---------- */
+  @keyframes nebula-signal-glow-pulse{
+    0%,100%{ box-shadow:0 0 3px rgba(34,197,94,0.6), 0 0 6px rgba(20,184,166,0.4); }
+    50%{ box-shadow:0 0 6px rgba(34,197,94,0.9), 0 0 12px rgba(20,184,166,0.6); }
+  }
+  .nebula-signal-dot{ animation:nebula-signal-glow-pulse 2s ease-in-out infinite; }
+  @keyframes nebula-spark-glow-pulse{
+    0%,100%{ box-shadow:0 0 6px rgba(124,58,237,0.35), 0 0 12px rgba(245,158,11,0.2); }
+    50%{ box-shadow:0 0 12px rgba(124,58,237,0.6), 0 0 20px rgba(245,158,11,0.4); }
+  }
+  .nebula-spark-glow{ animation:nebula-spark-glow-pulse 3s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce){
+    .nebula-signal-dot, .nebula-spark-glow{ animation:none; }
   }
 
   footer{
@@ -231,12 +248,12 @@
     </h1>
     <p class="lede">A Garry's Mod DarkRP server, built and tuned from the ground up. This is where the actual hours go — not a side hustle, not a hosting business, just a server I keep making better: tuning the economy, writing custom jobs, and building out systems players actually notice.</p>
     <div class="pill-row" style="margin-top:18px;">
-      <span class="pill">Garry's Mod</span>
-      <span class="pill">DarkRP</span>
-      <span class="pill">Custom Economy</span>
-      <span class="pill">Casino</span>
-      <span class="pill">Custom HUD</span>
-      <span class="pill">Credits</span>
+      <span class="pill nebula-spark-glow">Garry's Mod</span>
+      <span class="pill nebula-spark-glow">DarkRP</span>
+      <span class="pill nebula-spark-glow">Custom Economy</span>
+      <span class="pill nebula-spark-glow">Casino</span>
+      <span class="pill nebula-spark-glow">Custom HUD</span>
+      <span class="pill nebula-spark-glow">Credits</span>
     </div>
     <div style="margin-top:28px; display:flex; gap:14px; flex-wrap:wrap; align-items:center;">
       <a class="btn btn-primary" href="steam://connect/193.243.190.4:27087">Connect via Steam →</a>

@@ -167,6 +167,18 @@
     box-shadow:0 0 10px rgba(101,68,163,0.3);
     transform:translateY(-1px);
   }
+
+  /* ---------- Nebula gradient glow (ported from the Blackthorn app's own
+     accent treatment - genre pills get the violet/indigo/gold "spark"
+     variant, echoing this page's own purple/gold pill border). ---------- */
+  @keyframes nebula-spark-glow-pulse{
+    0%,100%{ box-shadow:0 0 6px rgba(124,58,237,0.35), 0 0 12px rgba(245,158,11,0.2); }
+    50%{ box-shadow:0 0 12px rgba(124,58,237,0.6), 0 0 20px rgba(245,158,11,0.4); }
+  }
+  .nebula-spark-glow{ animation:nebula-spark-glow-pulse 3s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce){
+    .nebula-spark-glow{ animation:none; }
+  }
   .track-audio{
     width:100%; height:32px; margin-left:38px; max-width:calc(100% - 38px);
     accent-color:var(--purple);
@@ -212,11 +224,11 @@
     <p class="lede">AI-generated tracks across way too many genres. Every song starts as a bad idea that got finished — this list is live, pulled straight from Suno, not hand-typed.</p>
     <p class="aside">The user wants a track listing that doesn't look like a Spotify Wrapped screenshot. This achieves that goal while still technically being a track listing, which is the best anyone can hope for here.</p>
     <div class="pill-row" style="margin-top:18px;">
-      <span class="pill">Brostep</span>
-      <span class="pill">Hardstyle</span>
-      <span class="pill">Sea Shanties</span>
-      <span class="pill">Conscious Rap</span>
-      <span class="pill">Comedy</span>
+      <span class="pill nebula-spark-glow">Brostep</span>
+      <span class="pill nebula-spark-glow">Hardstyle</span>
+      <span class="pill nebula-spark-glow">Sea Shanties</span>
+      <span class="pill nebula-spark-glow">Conscious Rap</span>
+      <span class="pill nebula-spark-glow">Comedy</span>
     </div>
   </div>
 </section>
@@ -310,7 +322,7 @@
 
         if (Array.isArray(track.tags) && track.tags.length){
           const tags = el('div', 'track-tags');
-          track.tags.forEach(t => tags.appendChild(el('span', 'pill', t)));
+          track.tags.forEach(t => tags.appendChild(el('span', 'pill nebula-spark-glow', t)));
           row.appendChild(tags);
         }
 

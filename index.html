@@ -267,6 +267,32 @@
     background:radial-gradient(circle, rgba(212,175,55,0.10), rgba(212,175,55,0) 70%);
     pointer-events:none;
   }
+  .bt-bg-video-wrap{ position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+  .bt-bg-video-wrap video{
+    position:absolute; top:50%; left:50%;
+    transform:translate(-50%, -50%);
+    min-width:100%; min-height:100%;
+    width:auto; height:auto;
+    object-fit:cover;
+    opacity:0.16;
+  }
+  .bt-bg-video-wrap::after{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, var(--bg) 0%, rgba(10,7,20,0.55) 14%, rgba(10,7,20,0.4) 55%, var(--bg) 100%),
+      radial-gradient(ellipse at 50% 45%, transparent 25%, var(--bg) 92%);
+  }
+  #blackthorn .wrap{ position:relative; z-index:1; }
+  @media (prefers-reduced-motion: reduce){
+    .bt-bg-video-wrap video{ display:none; }
+    .bt-bg-video-wrap{
+      background:
+        linear-gradient(rgba(10,7,20,0.86), rgba(10,7,20,0.86)),
+        center / cover no-repeat url('assets/blackthorn-bg-poster.jpg');
+    }
+    .bt-bg-video-wrap::after{ background:linear-gradient(180deg, var(--bg) 0%, rgba(10,7,20,0.55) 14%, rgba(10,7,20,0.4) 55%, var(--bg) 100%); }
+  }
   .bai-badge-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
 
   /* ---------- Section headers ---------- */
@@ -346,6 +372,69 @@
     background:linear-gradient(120deg, rgba(101,68,163,0.35), rgba(75,31,120,0.35)) padding-box;
     box-shadow:0 0 12px rgba(212,175,55,0.15), 0 0 10px rgba(101,68,163,0.35);
     transform:translateY(-1px);
+  }
+
+  /* ---------- Nebula gradient glow (ported from the Blackthorn app's own
+     accent treatment - same keyframes/palettes, applied here to site
+     badges/pills/cards instead of chat UI elements) ---------- */
+  @keyframes nebula-shift{
+    0%,100%{ background-position:0% 50%; }
+    50%{ background-position:100% 50%; }
+  }
+  @keyframes nebula-glow-pulse{
+    0%,100%{ box-shadow:0 0 8px rgba(217,70,239,0.4), 0 0 14px rgba(124,58,237,0.3); }
+    50%{ box-shadow:0 0 14px rgba(217,70,239,0.6), 0 0 24px rgba(59,130,246,0.45); }
+  }
+  .nebula-fill{
+    background:linear-gradient(120deg, #7c3aed, #d946ef, #f97316, #3b82f6, #7c3aed);
+    background-size:300% 300%;
+    animation:nebula-shift 8s ease-in-out infinite, nebula-glow-pulse 4s ease-in-out infinite;
+  }
+  .nebula-glow-ring{ animation:nebula-glow-pulse 4s ease-in-out infinite; }
+
+  @keyframes nebula-fresh-glow-pulse{
+    0%,100%{ box-shadow:0 0 6px rgba(16,185,129,0.35), 0 0 12px rgba(6,182,212,0.25); }
+    50%{ box-shadow:0 0 12px rgba(16,185,129,0.55), 0 0 20px rgba(6,182,212,0.4); }
+  }
+  .nebula-fresh{
+    background:linear-gradient(120deg, #059669, #14b8a6, #06b6d4, #14b8a6, #059669);
+    background-size:300% 300%;
+    animation:nebula-shift 8s ease-in-out infinite, nebula-fresh-glow-pulse 4s ease-in-out infinite;
+  }
+  .nebula-fresh-glow{ animation:nebula-fresh-glow-pulse 4s ease-in-out infinite; }
+
+  @keyframes nebula-spark-glow-pulse{
+    0%,100%{ box-shadow:0 0 6px rgba(124,58,237,0.35), 0 0 12px rgba(245,158,11,0.2); }
+    50%{ box-shadow:0 0 12px rgba(124,58,237,0.6), 0 0 20px rgba(245,158,11,0.4); }
+  }
+  .nebula-spark{
+    background:linear-gradient(120deg, #4f46e5, #7c3aed, #f59e0b, #7c3aed, #4f46e5);
+    background-size:300% 300%;
+    animation:nebula-shift 6s ease-in-out infinite, nebula-spark-glow-pulse 3s ease-in-out infinite;
+  }
+  .nebula-spark-glow{ animation:nebula-spark-glow-pulse 3s ease-in-out infinite; }
+
+  @keyframes nebula-signal-glow-pulse{
+    0%,100%{ box-shadow:0 0 3px rgba(34,197,94,0.6), 0 0 6px rgba(20,184,166,0.4); }
+    50%{ box-shadow:0 0 6px rgba(34,197,94,0.9), 0 0 12px rgba(20,184,166,0.6); }
+  }
+  .nebula-signal-dot{ animation:nebula-signal-glow-pulse 2s ease-in-out infinite; }
+
+  @keyframes nebula-router-glow-pulse{
+    0%,100%{ box-shadow:0 0 5px rgba(79,70,229,0.3), 0 0 10px rgba(20,184,166,0.2); }
+    50%{ box-shadow:0 0 10px rgba(79,70,229,0.5), 0 0 18px rgba(20,184,166,0.35); }
+  }
+  .nebula-router{
+    background:linear-gradient(120deg, #4338ca, #6d28d9, #0d9488, #6d28d9, #4338ca);
+    background-size:300% 300%;
+    animation:nebula-shift 9s ease-in-out infinite, nebula-router-glow-pulse 4s ease-in-out infinite;
+  }
+  .nebula-router-glow{ animation:nebula-router-glow-pulse 4s ease-in-out infinite; }
+
+  @media (prefers-reduced-motion: reduce){
+    .nebula-fill, .nebula-fresh, .nebula-spark, .nebula-router,
+    .nebula-glow-ring, .nebula-fresh-glow, .nebula-spark-glow, .nebula-router-glow,
+    .nebula-signal-dot{ animation:none; }
   }
 
   /* ---------- Downloads ---------- */
@@ -429,7 +518,7 @@
     <div class="badge-row">
       <span class="badge">
         <span class="badge-label">blackthorn</span>
-        <span class="badge-value ok">live</span>
+        <span class="badge-value ok nebula-signal-dot">live</span>
       </span>
       <span class="badge">
         <span class="badge-label">horizonsrp</span>
@@ -437,20 +526,25 @@
       </span>
       <span class="badge">
         <span class="badge-label">generatedbyaccident</span>
-        <span class="badge-value info">synced</span>
+        <span class="badge-value info nebula-glow-ring">synced</span>
       </span>
     </div>
 
     <h1>Always tinkering with <span class="accent">something new.</span></h1>
     <p class="lede">I like figuring things out — running ideas through LLMs, building for the sake of learning, seeing what sticks. Right now that's Blackthorn and HorizonsRP, plus whatever AI music I've talked myself into finishing this week. <span class="aside">Built by one guy, an unreasonable number of browser tabs, and a language model that has stopped asking questions and started just doing the thing.</span></p>
     <div class="hero-cta">
-      <a class="btn btn-primary" href="#blackthorn">Check out Blackthorn →</a>
+      <a class="btn btn-primary nebula-glow-ring" href="#blackthorn">Check out Blackthorn →</a>
       <a class="btn btn-ghost" href="horizonsrp.html">HorizonsRP</a>
     </div>
   </div>
 </section>
 
 <section id="blackthorn">
+  <div class="bt-bg-video-wrap" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="metadata" poster="assets/blackthorn-bg-poster.jpg">
+      <source src="assets/blackthorn-bg.mp4" type="video/mp4">
+    </video>
+  </div>
   <div class="wrap">
     <div class="section-head">
       <div>
@@ -461,7 +555,7 @@
     </div>
 
     <p style="max-width:640px; color:var(--text-dim); margin-bottom:20px; font-size:1.02rem;">
-      Instead of handing my one API key straight to friends, this runs a proxy in front of it that issues each person their own rate-limited, budgeted, revocable key — with a full chat UI, a lineup of purpose-built models, a real tool ecosystem, and private web search on top. No dollar figures shown to anyone, just a plain read on how much of their own limit is left.
+      Instead of handing my one API key straight to friends, this runs a proxy in front of it that issues each person their own rate-limited, budgeted, revocable key — with a full chat UI, a lineup of purpose-built models, a real tool ecosystem, and private web search on top. Everyone gets a plain read on how much of their own limit is left, plus a real per-message cost estimate — so nobody's guessing what a conversation actually costs.
     </p>
 
     <div class="bai-badge-row">
@@ -471,15 +565,15 @@
       </span>
       <span class="badge">
         <span class="badge-label">hosting</span>
-        <span class="badge-value ok">self-hosted</span>
+        <span class="badge-value ok nebula-fresh-glow">self-hosted</span>
       </span>
       <span class="badge">
         <span class="badge-label">router</span>
-        <span class="badge-value info">nightshade</span>
+        <span class="badge-value info nebula-router-glow">nightshade</span>
       </span>
       <span class="badge">
         <span class="badge-label">tools live</span>
-        <span class="badge-value info">42</span>
+        <span class="badge-value info nebula-spark-glow">42</span>
       </span>
     </div>
 
@@ -496,6 +590,8 @@
       <span class="pill">Cloudflare R2</span>
       <span class="pill">Electron</span>
       <span class="pill">Rust</span>
+      <span class="pill">Stable Diffusion</span>
+      <span class="pill">FastAPI</span>
     </div>
 
     <h3 style="margin-top:40px; margin-bottom:16px; color:var(--text-dim); font-family:var(--font-mono); font-weight:500; text-transform:uppercase; letter-spacing:0.06em; font-size:0.85rem;">Why bother self-hosting</h3>
@@ -519,16 +615,31 @@
 
     <h3 style="margin-top:40px; margin-bottom:16px; color:var(--text-dim); font-family:var(--font-mono); font-weight:500; text-transform:uppercase; letter-spacing:0.06em; font-size:0.85rem;">One gateway, a couple of models</h3>
     <div class="grid">
-      <div class="card">
+      <div class="card nebula-router-glow">
         <span class="tag">Default</span>
         <h3>Nightshade</h3>
         <p>The default, invisible router. It reads every prompt and escalates through fast/medium/heavy tiers automatically — a one-liner gets the cheap fast model, "verify this" or "write me a function" gets bumped up to a tier that'll actually check or reason instead of guessing.</p>
       </div>
 
-      <div class="card">
+      <div class="card nebula-glow-ring">
         <span class="tag">Vision</span>
         <h3>Belladonna</h3>
         <p>Image-capable tier for anything with a picture attached — reads screenshots, photos, and documents instead of politely refusing. Swapped to a stronger model after the previous one confidently made up details on a real test photo.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:40px; margin-bottom:16px; color:var(--text-dim); font-family:var(--font-mono); font-weight:500; text-transform:uppercase; letter-spacing:0.06em; font-size:0.85rem;">Talk to it, get more than text back</h3>
+    <div class="grid">
+      <div class="card nebula-fresh-glow">
+        <span class="tag">Voice</span>
+        <h3>Talk To It, Hear It Back</h3>
+        <p>Push-to-talk in, spoken replies out — free local speech-to-text on the way in, a real streamed voice on the way out. No third-party voice API sitting in the loop either direction.</p>
+      </div>
+
+      <div class="card nebula-spark-glow">
+        <span class="tag">Images</span>
+        <h3>Local Image Generation</h3>
+        <p>Runs on the same hardware as everything else — a real checkpoint on a local GPU, not a hosted API call. Generate an image straight from a reply, no separate app or account needed.</p>
       </div>
     </div>
 
@@ -598,7 +709,7 @@
           <h4>Blackthorn Desktop</h4>
           <div class="sub">Windows · auto-updates · wired into the same proxy</div>
         </div>
-        <a class="btn btn-primary" href="https://blackthorn-download.aaronfrazier03.workers.dev/" target="_blank" rel="noopener">Download →</a>
+        <a class="btn btn-primary nebula-glow-ring" href="https://blackthorn-download.aaronfrazier03.workers.dev/" target="_blank" rel="noopener">Download →</a>
       </div>
     </div>
     <p class="dl-note">Both gated to friends &amp; family right now, not open signup — message me on Discord and I'll get you in. The desktop build is a bigger trust step too: real shell/tool access on your own machine, not just a browser tab.</p>
@@ -719,7 +830,7 @@
       if (ageMin > 380) throw new Error('stale');
 
       if (data.online){
-        heroBadge.textContent = 'online'; heroBadge.className = 'badge-value ok';
+        heroBadge.textContent = 'online'; heroBadge.className = 'badge-value ok nebula-signal-dot';
       } else {
         heroBadge.textContent = 'offline'; heroBadge.className = 'badge-value offline';
       }

@@ -35,10 +35,23 @@ Background info from building this site that isn't obvious from the code alone.
     writing card without a real instance backing it), then later reused as
     the display name for the renamed vision tier (previously shown here as
     "Nemotron Vision"). The site now only reflects the current meaning -
-    vision. Local transcription (previously a "Voice" tool card, backed by
-    a self-hosted Whisper instance) was also decommissioned and removed from
-    the tool cards and the top pill-row - don't reintroduce either without a
-    real live instance backing it.
+    vision. Don't reintroduce a creative-writing card without a real
+    instance backing it.
+  - **Voice mode is live again as of 2026-08-18** (previously decommissioned,
+    see the old note this replaced) - local speech-to-text (self-hosted
+    Whisper) in, streamed TTS out (Cloudflare Aura, backing a real generated
+    voice). Shown as its own card in the "Talk to it, get more than text
+    back" grid, not folded into the tool pill-row - it's a chat-level
+    input/output mode, not an invocable tool the model calls.
+  - **Local image generation, new 2026-08-18** - a real Stable Diffusion
+    checkpoint (Pony Diffusion V6 XL) running on the owner's own GPU, not a
+    hosted API. Manual "Generate Image" button on a reply, not an
+    auto-invoked tool - same reasoning as Voice above for why it's a card,
+    not a tool pill. Per-friend billing works around a real LiteLLM
+    limitation (its image-generation cost calculator never reads
+    DB-registered custom model pricing) via a direct Postgres spend
+    increment - don't describe this as "automatic LiteLLM billing" if
+    writing about the mechanism, it's a deliberate workaround.
   - **Naming note on "Blackthorn":** the name was briefly used before, for something
     unrelated — a Hermes Agent-backed agentic/tool-use model card that existed as a
     fourth lineup entry (2026-08-07/08) then was fully decommissioned (2026-08-08).
@@ -161,6 +174,32 @@ across the live-data sections now, not something specific to music.
   (HorizonsRP online/offline, live from `status.json`) without the terminal
   cosplay. Don't reintroduce the fake-terminal treatment.
 - Vibe target: dark and techy, retro/arcade-adjacent, explicitly "not geeky or nerdy."
+- **Nebula glow** (added 2026-08-18): `.nebula-fill`/`.nebula-fresh`/`.nebula-spark`/
+  `.nebula-router` (animated gradient fill + pulsing glow) and their `-glow`/
+  `-glow-ring`/`-signal-dot` siblings (glow-only, no background shift - used
+  on badges/pills where text sits directly on the colored surface and a
+  shifting gradient would risk contrast) are ported byte-for-byte from the
+  Blackthorn app's own `app.css` accent treatment (`nebula-shift`/
+  `nebula-*-glow-pulse` keyframes), same palettes, "kept in sync by hand"
+  same as that file says about its own desktop-app counterpart. Applied
+  contextually per meaning, not uniformly - router (indigo/teal) on
+  Nightshade specifically since it's literally the router, signal
+  (green/teal) on live-status dots, spark (violet/gold) on generative/
+  variety content (genre pills, tool pills), fresh (emerald/teal) on
+  hosting/voice. All respect `prefers-reduced-motion`.
+- **Blackthorn section background video** (added 2026-08-18): the actual
+  Blackthorn-branding loading video (`assets/blackthorn-bg.mp4`, sourced
+  from the app's own branding assets, not site-original), looping behind
+  `#blackthorn` only - not sitewide, since it's Blackthorn-branded
+  specifically and the other sections (HorizonsRP, music) aren't. Heavily
+  dimmed (`opacity:0.16` + a dark gradient overlay) so it reads as texture,
+  not a distraction from the text sitting on top. `prefers-reduced-motion`
+  swaps it for a static extracted frame (`assets/blackthorn-bg-poster.jpg`)
+  instead of just stopping playback. Gotcha hit building this: the video
+  wrapper is `position:absolute`, which stacks above `position:static`
+  content regardless of DOM order - `#blackthorn .wrap` needs its own
+  `position:relative` or the overlay renders on top of the copy instead of
+  behind it.
 
 ## Deploy
 
