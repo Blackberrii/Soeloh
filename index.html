@@ -383,13 +383,58 @@
     0%,100%{ box-shadow:0 0 3px rgba(185,140,255,0.18); border-color:rgba(185,140,255,0.14); }
     50%{ box-shadow:0 0 8px rgba(185,140,255,0.4); border-color:rgba(185,140,255,0.4); }
   }
+  /* Each pill is a tiny window into the same nebula - an oversized ::before
+     layer (cloud + two fixed "star" points) clipped to the pill's rounded
+     shape and animated with transform instead of background-position.
+     transform/opacity run on the compositor thread; animating
+     background-position instead would force a full repaint every frame on
+     every single pill - measured 108 concurrent animations on this page
+     alone once pills joined the badges/cards already using this system,
+     and it visibly stalled compositing. Same visual result, actually
+     cheap this way. */
   .pill{
     position:relative;
+    overflow:hidden;
     font-family:var(--font-mono); font-size:0.68rem; letter-spacing:0.02em;
-    color:var(--text-dim); background:var(--panel-2);
+    color:var(--text-dim);
+    background:var(--panel-2);
     border:1px solid var(--line); padding:3px 10px; border-radius:20px; white-space:nowrap;
-    transition:color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    transition:color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
     animation:nebula-pill-ambient-pulse 5s ease-in-out infinite;
+  }
+  .pill::before{
+    content:"";
+    position:absolute;
+    inset:-60%;
+    background:
+      radial-gradient(circle 2px at 25% 35%, rgba(255,255,255,0.85), transparent 100%),
+      radial-gradient(circle 2px at 70% 60%, rgba(255,240,200,0.75), transparent 100%),
+      linear-gradient(120deg, rgba(124,58,237,0.32), rgba(217,70,239,0.26), rgba(249,115,22,0.2), rgba(59,130,246,0.26), rgba(124,58,237,0.32));
+    animation:nebula-pill-drift 12s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes nebula-pill-drift{
+    0%,100%{ transform:translate(0,0) rotate(0deg); }
+    33%{ transform:translate(8%,-6%) rotate(4deg); }
+    66%{ transform:translate(-6%,5%) rotate(-3deg); }
+  }
+  .pill.nebula-spark-glow::before{
+    background:
+      radial-gradient(circle 2px at 25% 35%, rgba(255,255,255,0.85), transparent 100%),
+      radial-gradient(circle 2px at 70% 60%, rgba(255,240,200,0.75), transparent 100%),
+      linear-gradient(120deg, rgba(79,70,229,0.3), rgba(124,58,237,0.28), rgba(245,158,11,0.22), rgba(124,58,237,0.28), rgba(79,70,229,0.3));
+  }
+  .pill.nebula-fresh-glow::before{
+    background:
+      radial-gradient(circle 2px at 25% 35%, rgba(255,255,255,0.85), transparent 100%),
+      radial-gradient(circle 2px at 70% 60%, rgba(255,240,200,0.75), transparent 100%),
+      linear-gradient(120deg, rgba(5,150,105,0.3), rgba(20,184,166,0.26), rgba(6,182,212,0.22), rgba(20,184,166,0.26), rgba(5,150,105,0.3));
+  }
+  .pill.nebula-router-glow::before{
+    background:
+      radial-gradient(circle 2px at 25% 35%, rgba(255,255,255,0.85), transparent 100%),
+      radial-gradient(circle 2px at 70% 60%, rgba(255,240,200,0.75), transparent 100%),
+      linear-gradient(120deg, rgba(67,56,202,0.3), rgba(109,40,217,0.26), rgba(13,148,136,0.22), rgba(109,40,217,0.26), rgba(67,56,202,0.3));
   }
   /* Desync the ambient pulse across a pill-row so it reads as a scatter of
      independently twinkling lights instead of one uniform flash. */
@@ -401,7 +446,6 @@
   .pill:hover{
     color:var(--text);
     border-color:rgba(185,140,255,0.45);
-    background:linear-gradient(120deg, rgba(101,68,163,0.35), rgba(75,31,120,0.35)) padding-box;
     box-shadow:0 0 12px rgba(212,175,55,0.15), 0 0 10px rgba(101,68,163,0.35);
     transform:translateY(-1px);
   }
@@ -475,7 +519,8 @@
   @media (prefers-reduced-motion: reduce){
     .nebula-fill, .nebula-fresh, .nebula-spark, .nebula-router,
     .nebula-glow-ring, .nebula-fresh-glow, .nebula-spark-glow, .nebula-router-glow,
-    .nebula-signal-dot, .nebula-current-glow, .pill, .eyebrow::before, .dl-item{ animation:none; }
+    .nebula-signal-dot, .nebula-current-glow, .pill, .pill::before,
+    .eyebrow::before, .dl-item{ animation:none; }
   }
 
   /* ---------- Downloads ---------- */
