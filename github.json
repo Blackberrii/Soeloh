@@ -25,6 +25,16 @@
   ],
   "activity": [
     {
+      "label": "Starred deepseek-harness",
+      "url": "https://github.com/deepseek-ai/deepseek-harness",
+      "created_at": "2026-08-17T05:41:39Z"
+    },
+    {
+      "label": "Rework homepage around Blackthorn: web-version link, denser purple theme",
+      "url": "https://github.com/Blackberrii/Soeloh/commit/6fc3c3cffcc6670ef484c1693891388e2b588e9e",
+      "created_at": "2026-08-13T22:36:59Z"
+    },
+    {
       "label": "Add flowing neon cursor: tapered chain trail settling into a resting dot",
       "url": "https://github.com/Blackberrii/Soeloh/commit/d2a18a00ac2d6fab0ae1fc35ed02f3a552e36942",
       "created_at": "2026-08-13T04:42:39Z"
@@ -38,17 +48,7 @@
       "label": "Update BlackberryAI section: current model lineup, tool count, remove dead features",
       "url": "https://github.com/Blackberrii/Soeloh/commit/464d1976d65b264b4e0f475363ec7b995c7c5bf7",
       "created_at": "2026-08-10T02:44:01Z"
-    },
-    {
-      "label": "Remove Blackthorn from the BlackberryAI model lineup",
-      "url": "https://github.com/Blackberrii/Soeloh/commit/c3acb61270127810abd347eb57921e32c017aa50",
-      "created_at": "2026-08-08T10:11:14Z"
-    },
-    {
-      "label": "Update BlackberryAI homepage section with model lineup and tool ecosystem",
-      "url": "https://github.com/Blackberrii/Soeloh/commit/4dfa8b45bda18fb052ecebfee534bd66f1c78698",
-      "created_at": "2026-08-07T17:26:29Z"
     }
   ],
-  "checked_at": "2026-08-13T21:42:22.865869+00:00"
+  "checked_at": "2026-08-18T12:41:08.755566+00:00"
 }
