@@ -25,6 +25,11 @@
   ],
   "activity": [
     {
+      "label": "Replace procedural nebula canvas with real astrophotography",
+      "url": "https://github.com/Blackberrii/Soeloh/commit/df6c4419db6a4feec5d6a8aca7c0a4c68e117986",
+      "created_at": "2026-08-18T15:03:35Z"
+    },
+    {
       "label": "Rebalance nebula canvas palette to lead with purple + gold",
       "url": "https://github.com/Blackberrii/Soeloh/commit/8903791fc8881207ca0aa4daf1c1142e3b2e0c1e",
       "created_at": "2026-08-18T14:10:57Z"
@@ -43,12 +48,7 @@
       "label": "Rework homepage around Blackthorn: web-version link, denser purple theme",
       "url": "https://github.com/Blackberrii/Soeloh/commit/6fc3c3cffcc6670ef484c1693891388e2b588e9e",
       "created_at": "2026-08-13T22:36:59Z"
-    },
-    {
-      "label": "Add flowing neon cursor: tapered chain trail settling into a resting dot",
-      "url": "https://github.com/Blackberrii/Soeloh/commit/d2a18a00ac2d6fab0ae1fc35ed02f3a552e36942",
-      "created_at": "2026-08-13T04:42:39Z"
     }
   ],
-  "checked_at": "2026-08-18T17:24:50.872577+00:00"
+  "checked_at": "2026-08-18T18:35:08.981454+00:00"
 }
