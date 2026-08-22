@@ -12,7 +12,7 @@
       ],
       "topics": [],
       "stars": 0,
-      "pushed_at": "2026-08-21T02:52:20Z"
+      "pushed_at": "2026-08-22T02:26:25Z"
     },
     {
       "name": "StatScape",
@@ -39,6 +39,16 @@
   ],
   "activity": [
     {
+      "label": "Match favicon and cursor trail to the new thorn/ember visual identity",
+      "url": "https://github.com/Blackberrii/blackthorn-site/commit/71389c2b0366e395df2c53b2e19de536825aca0a",
+      "created_at": "2026-08-22T02:13:35Z"
+    },
+    {
+      "label": "Replace hand-coded favicon with a real RealFaviconGenerator package",
+      "url": "https://github.com/Blackberrii/blackthorn-site/commit/3658dfa4c2ea2ab67ed6006c591e2dff2c396fe4",
+      "created_at": "2026-08-22T02:26:26Z"
+    },
+    {
       "label": "Fix download link - remove real-name-exposing workers.dev URL",
       "url": "https://github.com/Blackberrii/blackthorn-site/commit/32bd7cf8f646e76e800d9312fc69656051651266",
       "created_at": "2026-08-21T02:52:20Z"
@@ -52,17 +62,7 @@
       "label": "Introduce Hestia as the personal brand above Blackthorn",
       "url": "https://github.com/Blackberrii/Soeloh/commit/8164c7b2f234aa61676e55ff2e25fabde5451278",
       "created_at": "2026-08-21T00:16:17Z"
-    },
-    {
-      "label": "Created branch in blackthorn-site",
-      "url": "https://github.com/Blackberrii/blackthorn-site",
-      "created_at": "2026-08-21T00:55:45Z"
-    },
-    {
-      "label": "Fix inaccurate claims in Blackthorn section copy",
-      "url": "https://github.com/Blackberrii/Soeloh/commit/a5a88ea8607e4d374f2c71cebd89acd3bcacb6a1",
-      "created_at": "2026-08-18T16:44:13Z"
     }
   ],
-  "checked_at": "2026-08-22T01:07:14.842349+00:00"
+  "checked_at": "2026-08-22T02:52:36.792054+00:00"
 }
