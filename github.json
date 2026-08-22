@@ -12,7 +12,7 @@
       ],
       "topics": [],
       "stars": 0,
-      "pushed_at": "2026-08-22T04:29:59Z"
+      "pushed_at": "2026-08-22T04:37:35Z"
     },
     {
       "name": "StatScape",
@@ -39,6 +39,16 @@
   ],
   "activity": [
     {
+      "label": "Give Hestia a real visual presence - a hearth in the Who's behind this section",
+      "url": "https://github.com/Blackberrii/blackthorn-site/commit/51a85a86eb29fe02538dea7b47b484d67c30e1ab",
+      "created_at": "2026-08-22T04:30:00Z"
+    },
+    {
+      "label": "Give the hearth video more presence - bigger card, more breathing room",
+      "url": "https://github.com/Blackberrii/blackthorn-site/commit/829643f81d0749fb48713d4d52425655ac3c9df9",
+      "created_at": "2026-08-22T04:37:36Z"
+    },
+    {
       "label": "Match favicon and cursor trail to the new thorn/ember visual identity",
       "url": "https://github.com/Blackberrii/blackthorn-site/commit/71389c2b0366e395df2c53b2e19de536825aca0a",
       "created_at": "2026-08-22T02:13:35Z"
@@ -52,17 +62,7 @@
       "label": "Fix download link - remove real-name-exposing workers.dev URL",
       "url": "https://github.com/Blackberrii/blackthorn-site/commit/32bd7cf8f646e76e800d9312fc69656051651266",
       "created_at": "2026-08-21T02:52:20Z"
-    },
-    {
-      "label": "Fix download link - remove real-name-exposing workers.dev URL",
-      "url": "https://github.com/Blackberrii/Soeloh/commit/762e5975d6d6a1a4fe91b1407ea08bd77abd733e",
-      "created_at": "2026-08-21T02:52:09Z"
-    },
-    {
-      "label": "Introduce Hestia as the personal brand above Blackthorn",
-      "url": "https://github.com/Blackberrii/Soeloh/commit/8164c7b2f234aa61676e55ff2e25fabde5451278",
-      "created_at": "2026-08-21T00:16:17Z"
     }
   ],
-  "checked_at": "2026-08-22T04:30:11.415455+00:00"
+  "checked_at": "2026-08-22T05:24:59.980786+00:00"
 }
