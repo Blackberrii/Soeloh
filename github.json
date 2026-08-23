@@ -4,7 +4,12 @@
       "name": "blackthorn-site",
       "description": "Blackthorn's landing page \u2014 about.blackthorn.chat",
       "url": "https://github.com/Blackberrii/blackthorn-site",
-      "languages": [],
+      "languages": [
+        {
+          "name": "HTML",
+          "percent": 100.0
+        }
+      ],
       "topics": [],
       "stars": 0,
       "pushed_at": "2026-08-22T04:37:35Z"
@@ -59,5 +64,5 @@
       "created_at": "2026-08-22T02:26:26Z"
     }
   ],
-  "checked_at": "2026-08-23T15:21:23.525495+00:00"
+  "checked_at": "2026-08-23T16:22:30.372996+00:00"
 }
