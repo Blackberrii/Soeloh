@@ -25,6 +25,11 @@
   ],
   "activity": [
     {
+      "label": "Fix managed transcoding: missing CDN headers, process disposal race, and cookie/client conflict",
+      "url": "https://github.com/Blackberrii/jellyfin-youtube-plugin/commit/e6cc827d19df2307829fc9293111f070d075aa38",
+      "created_at": "2026-09-07T06:51:42Z"
+    },
+    {
       "label": "IssueComment in jellyfin-youtube-plugin",
       "url": "https://github.com/kingschnulli/jellyfin-youtube-plugin",
       "created_at": "2026-09-07T07:27:29Z"
@@ -43,12 +48,7 @@
       "label": "Forked jellyfin-youtube-plugin",
       "url": "https://github.com/kingschnulli/jellyfin-youtube-plugin",
       "created_at": "2026-09-07T06:44:16Z"
-    },
-    {
-      "label": "Fix download link - remove real-name-exposing workers.dev URL",
-      "url": "https://github.com/Blackberrii/Soeloh/commit/762e5975d6d6a1a4fe91b1407ea08bd77abd733e",
-      "created_at": "2026-08-21T02:52:09Z"
     }
   ],
-  "checked_at": "2026-09-08T14:53:00.912548+00:00"
+  "checked_at": "2026-09-08T18:18:39.420048+00:00"
 }
