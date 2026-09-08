@@ -25,6 +25,11 @@
   ],
   "activity": [
     {
+      "label": "Created branch in jellyfin-youtube-plugin",
+      "url": "https://github.com/Blackberrii/jellyfin-youtube-plugin",
+      "created_at": "2026-09-07T06:45:29Z"
+    },
+    {
       "label": "Fix managed transcoding: missing CDN headers, process disposal race, and cookie/client conflict",
       "url": "https://github.com/Blackberrii/jellyfin-youtube-plugin/commit/e6cc827d19df2307829fc9293111f070d075aa38",
       "created_at": "2026-09-07T06:51:42Z"
@@ -43,12 +48,7 @@
       "label": "opened a PR in jellyfin-youtube-plugin",
       "url": "https://github.com/kingschnulli/jellyfin-youtube-plugin",
       "created_at": "2026-09-07T06:53:35Z"
-    },
-    {
-      "label": "Forked jellyfin-youtube-plugin",
-      "url": "https://github.com/kingschnulli/jellyfin-youtube-plugin",
-      "created_at": "2026-09-07T06:44:16Z"
     }
   ],
-  "checked_at": "2026-09-08T18:18:39.420048+00:00"
+  "checked_at": "2026-09-08T21:34:05.334489+00:00"
 }
