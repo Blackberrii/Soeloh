@@ -25,6 +25,11 @@
   ],
   "activity": [
     {
+      "label": "merged a PR in jellyfin-youtube-plugin",
+      "url": "https://github.com/kingschnulli/jellyfin-youtube-plugin",
+      "created_at": "2026-10-05T06:25:41Z"
+    },
+    {
       "label": "Created branch in jellyfin-youtube-plugin",
       "url": "https://github.com/Blackberrii/jellyfin-youtube-plugin",
       "created_at": "2026-09-07T06:45:29Z"
@@ -43,12 +48,7 @@
       "label": "Starred jellyfin-youtube-plugin",
       "url": "https://github.com/kingschnulli/jellyfin-youtube-plugin",
       "created_at": "2026-09-07T06:57:42Z"
-    },
-    {
-      "label": "opened a PR in jellyfin-youtube-plugin",
-      "url": "https://github.com/kingschnulli/jellyfin-youtube-plugin",
-      "created_at": "2026-09-07T06:53:35Z"
     }
   ],
-  "checked_at": "2026-10-05T01:36:25.259720+00:00"
+  "checked_at": "2026-10-05T08:21:30.228266+00:00"
 }
